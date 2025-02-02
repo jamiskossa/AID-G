@@ -8,8 +8,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-
-    background: linear-gradient(to right, #075001, #0f9b0f);
+    background: #a15702;
 }
 
 main {
@@ -18,7 +17,7 @@ main {
 }
 
 header {
-    background-color: rgba(0, 0, 0, 0.2);
+    background: linear-gradient(45deg, #013009, #0f9b0f, #013009);
     color: #fff;
     display: flex;
     justify-content: space-between;
@@ -43,7 +42,7 @@ header {
 .menu-toggle .bar {
     width: 25px;
     height: 3px;
-    background: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
     margin: 4px 0;
     transition: all 0.3s ease;
 }
@@ -90,7 +89,7 @@ header {
 .btn {
     display: inline-block;
     padding: 0.5em 1em;
-    background: #0f9b0f;
+    background: linear-gradient(45deg, #013009, #0f9b0f, #013009);
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -109,7 +108,7 @@ header {
 .team-grid {
     display: flex;
     flex-wrap: wrap;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .team-member {
@@ -160,18 +159,18 @@ header {
 .activities {
     text-align: center;
     padding: 50px 20px;
-    background-color: rgba(0, 0, 0, 0.2);
+    background: #ffffff;
 }
 
 .activities h2 {
     font-size: 2em;
-    color: #d4d7da;
+    color: #090b0c;
     margin-bottom: 10px;
 }
 
 .activities p {
     font-size: 1em;
-    color: #e9e4e4;
+    color: #080606;
     margin-bottom: 30px;
 }
 
@@ -186,9 +185,8 @@ header {
 
 /* Cartes */
 .activity-card {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
     padding: 20px;
-    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s;
@@ -197,18 +195,18 @@ header {
 
 .activity-card i {
     font-size: 3rem;
-    color: #f1f5f3;
+    color: #070808;
     margin-bottom: 15px;
 }
 
 .activity-card h3 {
     font-size: 1.5em;
-    color: #f2f3f5;
+    color: #060708;
 }
 
 .activity-card p {
     font-size: 0.9em;
-    color: #f3eeee;
+    color: #050404;
 }
 
 /* Effet au survol */
@@ -222,7 +220,7 @@ header {
 .blog {
     text-align: center;
     padding: 50px 20px;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .blog h2 {
@@ -249,8 +247,7 @@ header {
 /* Cartes d'article */
 .blog-card {
     background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s;
 }
@@ -267,13 +264,13 @@ header {
 
 .blog-content h3 {
     font-size: 1.3em;
-    color: #eff1f3;
+    color: #0f1011;
     margin-bottom: 10px;
 }
 
 .blog-content p {
     font-size: 0.9em;
-    color: #f7eeee;
+    color: #0e0d0d;
     margin-bottom: 10px;
 }
 
@@ -294,7 +291,7 @@ header {
 /* Effet au survol */
 .blog-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 
 /* Bouton Voir plus */
@@ -305,7 +302,7 @@ header {
     font-size: 1em;
     font-weight: bold;
     color: white;
-    background: #0f9b0f;
+    background: linear-gradient(45deg, #013009, #0f9b0f, #013009);
     border-radius: 5px;
     text-decoration: none;
     transition: background 0.3s ease-in-out;
@@ -319,18 +316,18 @@ header {
 .gallery {
     text-align: center;
     padding: 50px 20px;
-    background-color: rgba(0, 0, 0, 0.2);
+    background: #ffffff;
 }
 
 .gallery h2 {
     font-size: 2em;
-    color: #f3f4f5;
+    color: #040405;
     margin-bottom: 10px;
 }
 
 .gallery p {
     font-size: 1em;
-    color: #faf6f6;
+    color: #0c0909;
     margin-bottom: 30px;
 }
 
@@ -338,10 +335,9 @@ header {
 .slideshow-container {
     position: relative;
     max-width: 100%;
-    height: 250px;
+    height: 350px;
     margin: auto;
     overflow: hidden;
-    border-radius: 10px;
 }
 
 .slide {
@@ -351,7 +347,7 @@ header {
 
 .slide img {
     width: 100%;
-    height: 500px;
+    height: 200px;
     object-fit: cover;
     border-radius: 10px;
 }
@@ -385,7 +381,7 @@ header {
     font-size: 1em;
     font-weight: bold;
     color: white;
-    background: #0f9b0f;
+    background: linear-gradient(45deg, #013009, #0f9b0f, #013009);
     border-radius: 5px;
     text-decoration: none;
     transition: background 0.3s ease-in-out;
@@ -399,7 +395,7 @@ header {
 .contact {
     text-align: center;
     padding: 50px 20px;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .contact h2 {
@@ -429,7 +425,7 @@ header {
     flex: 1;
     min-width: 280px;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.4);
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
@@ -451,7 +447,7 @@ header {
 .contact-form button {
     width: 100%;
     padding: 12px;
-    background: #27ae60;
+    background: linear-gradient(45deg, #013009, #0f9b0f, #013009);
     color: white;
     border: none;
     border-radius: 5px;
@@ -469,7 +465,7 @@ header {
     flex: 1;
     min-width: 280px;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.4);
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
@@ -506,9 +502,9 @@ header {
 .video {
     position: relative;
     overflow: hidden;
-    border-radius: 15px;
+    
     border: 2px solid #00ffcc;
-    background-color: #262626;
+    background-color: rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -520,9 +516,9 @@ header {
 .video iframe {
     width: 100%;
     height: 100%;
-    min-height: 200px;
+    min-height: 300px;
     border: none;
-    border-radius: 15px;
+    
 }
 
 /* Effet de lueur au survol */
@@ -544,7 +540,7 @@ header {
 
 /* style.css */
 footer {
-    background-color: rgba(0, 0, 0, 0.2);
+    background: linear-gradient(45deg, #013009, #0f9b0f, #013009);
     color: #fff;
     padding: 2em 0;
     text-align: center;
@@ -582,9 +578,9 @@ footer {
 #objectifs {
     text-align: center;
     padding: 60px 20px;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.5);
     color: #ffffff;
-    border-radius: 15px;
+
     box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.3);
     margin: 30px auto;
     max-width: 900px;
@@ -605,7 +601,7 @@ footer {
     content: "";
     width: 60px;
     height: 4px;
-    background: cyan;
+    background-color: rgba(0, 0, 0, 0.5);
     position: absolute;
     bottom: -10px;
     left: 50%;
@@ -650,7 +646,7 @@ footer {
 
 /* Style global */
 .presentation {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     text-align: center;
     padding: 60px 20px;
@@ -688,7 +684,7 @@ footer {
     margin-bottom: 20px;
     position: relative;
     display: inline-block;
-    background: linear-gradient(90deg, cyan, blue);
+    background: linear-gradient(90deg, rgb(17, 26, 26), blue);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -715,10 +711,11 @@ footer {
     display: grid;
     gap: 20px;
     padding: 0 20px;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .grid-item {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
