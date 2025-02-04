@@ -214,3 +214,19 @@
         grid-template-columns: repeat(4, 1fr);
     }
 }
+
+/* Responsivité */
+@media (max-width: 768px) {
+    .mission h2 {
+        font-size: 2rem;
+    }
+
+    .item-grid {
+        max-width: 100%;
+    }
+
+    .btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+}
