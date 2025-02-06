@@ -83,7 +83,7 @@ header {
 
 .slider img {
     width: 100%;
-    height: 500px;
+    height: auto;
 }
 
 .btn {
@@ -151,7 +151,7 @@ header {
 
 .social-icons img {
     width: 30px;
-    height: 30px;
+    height: 40px;
 }
 
 
@@ -335,7 +335,7 @@ header {
 .slideshow-container {
     position: relative;
     max-width: 100%;
-    height: 350px;
+    height: 500px;
     margin: auto;
     overflow: hidden;
 }
@@ -347,7 +347,7 @@ header {
 
 .slide img {
     width: 100%;
-    height: 200px;
+    height: 500px;
     object-fit: cover;
     border-radius: 10px;
 }
