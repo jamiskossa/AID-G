@@ -166,9 +166,8 @@ header {
 }
 
 .image-pair img {
-    width: 200px;
+    width: 400px;
     height: auto;
-    border-radius: 15px;
     transition: opacity 0.3s ease;
 }
 
