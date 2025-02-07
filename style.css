@@ -847,11 +847,7 @@ li {
     padding: 20px 0;
 }
 
-h2 {
-    font-size: 2rem;
-    color: #f1f6fa;
-    margin-bottom: 20px;
-}
+
 
 p {
     font-size: 1.1rem;
@@ -1161,4 +1157,13 @@ p {
     .article h3 {
         font-size: 1.2em;
     }
+}
+
+#videos h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #00ffcc;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
 }
