@@ -315,19 +315,6 @@ header {
     margin-bottom: 10px;
 }
 
-/* Bouton Lire plus */
-.read-more {
-    display: inline-block;
-    text-decoration: none;
-    color: #27ae60;
-    font-weight: bold;
-    margin-top: 10px;
-    transition: color 0.3s ease-in-out;
-}
-
-.read-more:hover {
-    color: #1e8449;
-}
 
 /* Effet au survol */
 .blog-card:hover {
@@ -1010,17 +997,87 @@ p {
     }
 }
 
+
+
 /* Style de la section */
-#diaporama {
+#social {
     padding: 20px;
     text-align: center;
+    background-color: #1e1e1e;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 255, 204, 0.3);
+    max-width: 600px;
+    margin: 20px auto;
 }
 
-#diaporama h2 {
-    font-size: 2.5em;
+#social h2 {
+    font-size: 2em;
     margin-bottom: 20px;
     color: #00ffcc;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
+/* Style du formulaire */
+#social form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+#social label {
+    font-size: 1.2em;
+    color: #e0e0e0;
+}
+
+#social input[type="email"] {
+    padding: 10px;
+    font-size: 1em;
+    border: 2px solid #00ffcc;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 400px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+#social button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 10px;
+    background-color: #00ffcc;
+    color: #121212;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#social button:hover {
+    background-color: #00e6b3;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #social {
+        padding: 15px;
+    }
+
+    #social h2 {
+        font-size: 1.8em;
+    }
+
+    #social input[type="email"] {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    #social h2 {
+        font-size: 1.6em;
+    }
+
+    #social input[type="email"] {
+        width: 100%;
+    }
+}
