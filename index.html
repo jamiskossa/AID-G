@@ -3,211 +3,884 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>AID-G Agroforesterie Intégrée et Durable en Guinée</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="responsive.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    
-    
-    <main>
-
-        <header>
-            <div class="logo">
-                <img src="gaf.jpeg" alt="Logo AID-G">
-            </div>
-            <nav>
-                <div class="menu-toggle" id="mobile-menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-                <ul class="nav-list">
-                    <li><a href="index.html">Accueil</a></li>
-                    <li><a href="a-propos.html">À Propos</a></li>
-                    <li><a href="activites.html">Nos Activités</a></li>
-                    <li><a href="blog.html">Blog & Actualités</a></li>
-                    <li><a href="galerie.html">Galerie & Vidéo</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
-        <!-- Bannière dynamique -->
-    <section class="banner">
-        <!-- Diaporama -->
-        <div class="slideshow-container">
-            <div class="slide fade">
-                <img src="1.png" alt="Logo AID-G">
-            </div>
-            <div class="slide fade">
-                <img src="3.png" alt="Logo AID-G">
-            </div>
-            <div class="slide fade">
-                <img src="2.png" alt="Logo AID-G">
-            </div>
-        </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'forest': {
+                            50: '#f2f8f2',
+                            100: '#e0efe0',
+                            200: '#c1dfc1',
+                            300: '#92c692',
+                            400: '#5fa75f',
+                            500: '#3f8c3f',
+                            600: '#2e712e',
+                            700: '#265a26',
+                            800: '#224822',
+                            900: '#1e3c1e',
+                            950: '#0f210f',
+                        },
+                        'earth': {
+                            50: '#f9f6f3',
+                            100: '#f0e9e1',
+                            200: '#e0ceb8',
+                            300: '#d0b08e',
+                            400: '#c1946a',
+                            500: '#b17e53',
+                            600: '#a06a47',
+                            700: '#85553c',
+                            800: '#6e4735',
+                            900: '#5b3c2e',
+                            950: '#301e17',
+                        },
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-in-out',
+                        'slide-down': 'slideDown 0.8s ease-in-out',
+                        'slide-left': 'slideLeft 0.8s ease-in-out',
+                        'slide-right': 'slideRight 0.8s ease-in-out',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideLeft: {
+                            '0%': { transform: 'translateX(30px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        slideRight: {
+                            '0%': { transform: 'translateX(-30px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                    },
+                    backgroundImage: {
+                        'green-gradient': 'linear-gradient(135deg, #2e712e 0%, #5fa75f 50%, #92c692 100%)',
+                        'earth-gradient': 'linear-gradient(135deg, #6e4735 0%, #a06a47 50%, #d0b08e 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes gradientBg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradientBg 8s ease infinite;
+        }
         
-    </section>
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        /* Parallax effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3f8c3f;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2e712e;
+        }
+    </style>
+</head>
 
-    <section class="mission">
-
-            <div class="container-grid">
-                <!-- Comprendre l'agriculture durable -->
-                <div class="item-grid">
-                    <h3>🌱 Comprendre l'agriculture durable</h3>
-                    <ul>
-                        <li> Préservation des ressources naturelles</li>
-                        <li> Réduction des impacts environnementaux</li>
-                        <li> Amélioration de la résilience climatique</li>
-                        <li> Renforcement de l'économie locale</li>
+<body class="font-sans text-gray-800 overflow-x-hidden">
+    <main class="relative">
+        <!-- Header avec navigation -->
+        <header class="fixed w-full bg-white shadow-md z-50 transition-all duration-300" id="navbar">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="logo flex items-center">
+                    <img src="gaf.jpeg" alt="Logo AID-G" class="h-14 w-auto rounded-lg shadow-sm mr-3 transition-transform duration-500 hover:scale-105">
+                    <span class="font-bold text-xl md:text-2xl bg-clip-text text-transparent bg-green-gradient animate-gradient">AID-G</span>
+                </div>
+                
+                <!-- Menu mobile toggle -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="flex items-center p-2 rounded-md text-forest-600 hover:text-forest-800 hover:bg-forest-100 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Navigation desktop -->
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-1">
+                        <li><a href="index.html" class="px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Accueil</a></li>
+                        <li><a href="a-propos.html" class="px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">À Propos</a></li>
+                        <li><a href="activites.html" class="px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Nos Activités</a></li>
+                        <li><a href="blog.html" class="px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Blog & Actualités</a></li>
+                        <li><a href="galerie.html" class="px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Galerie & Vidéo</a></li>
+                        <li><a href="contact.html" class="px-3 py-2 rounded-md text-white bg-forest-600 hover:bg-forest-700 transition-colors duration-300 font-medium">Contact</a></li>
                     </ul>
+                </nav>
+            </div>
+            
+            <!-- Menu mobile -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 shadow-inner">
+                <ul class="py-2 px-4 space-y-1">
+                    <li><a href="index.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">Accueil</a></li>
+                    <li><a href="a-propos.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">À Propos</a></li>
+                    <li><a href="activites.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">Nos Activités</a></li>
+                    <li><a href="blog.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">Blog & Actualités</a></li>
+                    <li><a href="galerie.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">Galerie & Vidéo</a></li>
+                    <li><a href="contact.html" class="block px-3 py-2 rounded-md text-white bg-forest-600 hover:bg-forest-700 transition-colors duration-300 mt-2">Contact</a></li>
+                </ul>
+            </div>
+        </header>
 
-                    <a href="a-propos.html" class="btn">En savoir plus</a>
+        <!-- Bannière dynamique -->
+        <section class="banner pt-20 relative h-[80vh] overflow-hidden">
+            <div class="slideshow-container h-full">
+                <div class="slide active h-full">
+                    <img src="1.png" alt="Agroforesterie" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                        <div class="text-center text-white px-4 animate-fade-in">
+                            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Agroforesterie Intégrée</h1>
+                            <p class="text-xl md:text-2xl max-w-3xl mx-auto">Solutions durables pour l'agriculture guinéenne</p>
+                            <a href="a-propos.html" class="mt-8 inline-block px-6 py-3 bg-forest-600 hover:bg-forest-700 text-white font-medium rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                                Découvrir notre mission
+                            </a>
+                        </div>
+                    </div>
                 </div>
-    </section>
-    <section class="activities">
-        <h2>Nos Activités</h2>
-        <p>Découvrez nos initiatives pour une agroforesterie durable en Guinée.</p>
-
-        <div class="activities-container">
-            <div class="activity-card">
-                <i class="fas fa-seedling"></i>
-                <h3>Reboisement</h3>
-                <p>Plantation d’arbres pour restaurer les écosystèmes et lutter contre la déforestation.</p>
-            </div>
-
-            <div class="activity-card">
-                <i class="fas fa-leaf"></i>
-                <h3>Formation</h3>
-                <p>Sessions éducatives pour sensibiliser les agriculteurs aux techniques agroforestières.</p>
-            </div>
-
-            <div class="activity-card">
-                <i class="fas fa-hand-holding-water"></i>
-                <h3>Gestion de l’eau</h3>
-                <p>Mise en place de techniques pour une gestion durable des ressources hydriques.</p>
-            </div>
-
-            <div class="activity-card">
-                <i class="fas fa-tractor"></i>
-                <h3>Agriculture Durable</h3>
-                <p>Promotion de pratiques agricoles respectueuses de l’environnement et productives.</p>
-            </div>
-        </div>
-
-        <a href="activites.html" class="btn">En savoir plus</a>
-    </section>
-
-    <section class="blog">
-        <h2>Blog & Actualités</h2>
-        <p>Découvrez nos dernières actualités sur l’agroforesterie.</p>
-
-        <div class="blog-container">
-            <article class="blog-card">
-                <img src="gaf.jpeg" alt="Logo AID-G">
-                <div class="blog-content">
-                    <h3>Les bienfaits de l’agroforesterie</h3>
-                    <p>Découvrez comment l’agroforesterie contribue à la préservation des sols et au développement durable.</p>
-                    <a href="blog.html" class="btn">Lire plus</a>
+                <div class="slide h-full">
+                    <img src="3.png" alt="Développement durable" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                        <div class="text-center text-white px-4">
+                            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Développement Durable</h1>
+                            <p class="text-xl md:text-2xl max-w-3xl mx-auto">Préserver les ressources pour les générations futures</p>
+                            <a href="activites.html" class="mt-8 inline-block px-6 py-3 bg-forest-600 hover:bg-forest-700 text-white font-medium rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                                Voir nos activités
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </article>
-
-            <article class="blog-card">
-                <img src="gaf.jpeg" alt="Logo AID-G">
-                <div class="blog-content">
-                    <h3>Reboisement : Un défi écologique</h3>
-                    <p>Comment le reboisement peut restaurer les écosystèmes et améliorer la biodiversité ?</p>
-                    <a href="blog.html" class="btn">Lire plus</a>
+                <div class="slide h-full">
+                    <img src="2.png" alt="Communautés locales" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                        <div class="text-center text-white px-4">
+                            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Communautés Locales</h1>
+                            <p class="text-xl md:text-2xl max-w-3xl mx-auto">Autonomisation des agriculteurs guinéens</p>
+                            <a href="contact.html" class="mt-8 inline-block px-6 py-3 bg-forest-600 hover:bg-forest-700 text-white font-medium rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                                Rejoignez-nous
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </article>
-
-            <article class="blog-card">
-                <img src="15.png" alt="Logo AID-G">
-                <div class="blog-content">
-                    <h3>Nouvelles techniques agricoles</h3>
-                    <p>Les innovations en agriculture durable qui transforment l’avenir des agriculteurs.</p>
-                    <a href="blog.html" class="btn">Lire plus</a>
+                
+                <!-- Contrôles du diaporama -->
+                <button class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-50 rounded-full p-2 text-white transition-all duration-300" id="prev-slide">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <button class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-50 rounded-full p-2 text-white transition-all duration-300" id="next-slide">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+                
+                <!-- Indicateurs de diapositives -->
+                <div class="absolute bottom-5 left-0 right-0 flex justify-center space-x-2">
+                    <button class="w-3 h-3 rounded-full bg-white bg-opacity-50 slide-indicator active" data-index="0"></button>
+                    <button class="w-3 h-3 rounded-full bg-white bg-opacity-50 slide-indicator" data-index="1"></button>
+                    <button class="w-3 h-3 rounded-full bg-white bg-opacity-50 slide-indicator" data-index="2"></button>
                 </div>
-            </article>
-        </div>
-
-        <a href="blog.html" class="btn">Voir plus</a>
-    </section>
-
-    <section class="gallery">
-        <h2>Galerie & Vidéo</h2>
-        <p>Un aperçu en images et vidéos de nos réalisations.</p>
-
-        <!-- Grille d'images -->
-        <div class="image-grid">
-            <img src="8.png" alt="Logo AID-G">
-            <img src="gaf.jpeg" alt="Logo AID-G">
-            <img src="7.png" alt="Logo AID-G">
-        </div>
-
-        <!-- Bouton Voir la Galerie -->
-        <a href="galerie.html" class="btn-gallery">Voir la galerie</a>
-    </section>
-
-    <section class="contact">
-        <h2>Contactez-nous</h2>
-        <p>Nous sommes à votre disposition pour toute question.</p>
-
-        <div class="contact-container">
-
-            <!-- Formulaire de contact -->
-            <div class="contact-form">
-                <h3>Envoyer un message</h3>
-                <form action="contact.php" method="POST">
-                    <input type="text" name="nom" placeholder="Votre Nom" required>
-                    <input type="email" name="email" placeholder="Votre Email" required>
-                    <textarea name="message" placeholder="Votre Message" rows="5" required></textarea>
-                    <button type="submit">Envoyer</button>
-                </form>
             </div>
+        </section>
 
-            <!-- Informations de contact -->
-            <div class="contact-info">
-                <h3>Nos coordonnées</h3>
-                <p><strong>Adresse :</strong> Quartier Kipé, Conakry, Guinée</p>
-                <p><strong>Téléphone :</strong> +224 620 12 34 56</p>
-                <p><strong>Email :</strong> daoucamarat@gmail.com/p>
+        <!-- Section Mission -->
+        <section class="mission py-16 bg-gradient-to-r from-forest-50 to-forest-100 animate-gradient">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="md:flex">
+                        <div class="md:w-1/2 relative overflow-hidden">
+                            <img src="gaf.jpeg" alt="Mission AID-G" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent flex items-end">
+                                <div class="p-6">
+                                    <h2 class="text-3xl font-bold text-white mb-2">Notre Mission</h2>
+                                    <p class="text-white text-opacity-90">Promouvoir l'agroforesterie durable en Guinée</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 p-6 md:p-8">
+                            <div class="animate-slide-up">
+                                <h3 class="text-2xl font-bold text-forest-700 flex items-center mb-4">
+                                    <span class="text-3xl mr-2 animate-float">🌱</span> 
+                                    Comprendre l'agriculture durable
+                                </h3>
+                                <ul class="space-y-3 text-gray-700">
+                                    <li class="flex items-start">
+                                        <svg class="h-5 w-5 text-forest-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span>Préservation des ressources naturelles</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="h-5 w-5 text-forest-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span>Réduction des impacts environnementaux</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="h-5 w-5 text-forest-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span>Amélioration de la résilience climatique</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="h-5 w-5 text-forest-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span>Renforcement de l'économie locale</span>
+                                    </li>
+                                </ul>
+                                <a href="a-propos.html" class="mt-6 inline-block px-6 py-2.5 bg-forest-600 hover:bg-forest-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-md">
+                                    En savoir plus
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
 
-        </div>
-
-        <!-- Carte Google Maps -->
-        <div class="contact-map">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.855326968228!2d-122.0842496846928!3d37.422065979825056!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3e066be98fdd14c!2sGoogleplex!5e0!3m2!1sfr!2sfr!4v1633094828081"
-                width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
-            </iframe>
-        </div>
-
-    </section>
-
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 AIG Agroforesterie Intégrée et Durable en Guinée</p>
-            <div class="social-icons">
-                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <!-- Section Activités -->
+        <section class="activities py-16">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12 animate-fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold text-forest-800 mb-4">Nos Activités</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Découvrez nos initiatives pour une agroforesterie durable en Guinée.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Activité 1 -->
+                    <div class="activity-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden group animate-slide-up" style="animation-delay: 0.1s;">
+                        <div class="p-6 flex flex-col items-center text-center">
+                            <div class="w-16 h-16 rounded-full bg-forest-100 flex items-center justify-center mb-4 group-hover:bg-forest-200 transition-colors duration-300">
+                                <i class="fas fa-seedling text-2xl text-forest-600 group-hover:text-forest-700 transition-colors duration-300"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Reboisement</h3>
+                            <p class="text-gray-600">Plantation d'arbres pour restaurer les écosystèmes et lutter contre la déforestation.</p>
+                            <div class="h-0.5 w-16 bg-forest-300 my-4 group-hover:w-24 transition-all duration-500"></div>
+                            <a href="activites.html#reboisement" class="text-forest-600 hover:text-forest-800 font-medium inline-flex items-center transition-colors duration-300">
+                                Détails
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Activité 2 -->
+                    <div class="activity-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden group animate-slide-up" style="animation-delay: 0.2s;">
+                        <div class="p-6 flex flex-col items-center text-center">
+                            <div class="w-16 h-16 rounded-full bg-forest-100 flex items-center justify-center mb-4 group-hover:bg-forest-200 transition-colors duration-300">
+                                <i class="fas fa-leaf text-2xl text-forest-600 group-hover:text-forest-700 transition-colors duration-300"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Formation</h3>
+                            <p class="text-gray-600">Sessions éducatives pour sensibiliser les agriculteurs aux techniques agroforestières.</p>
+                            <div class="h-0.5 w-16 bg-forest-300 my-4 group-hover:w-24 transition-all duration-500"></div>
+                            <a href="activites.html#formation" class="text-forest-600 hover:text-forest-800 font-medium inline-flex items-center transition-colors duration-300">
+                                Détails
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Activité 3 -->
+                    <div class="activity-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden group animate-slide-up" style="animation-delay: 0.3s;">
+                        <div class="p-6 flex flex-col items-center text-center">
+                            <div class="w-16 h-16 rounded-full bg-forest-100 flex items-center justify-center mb-4 group-hover:bg-forest-200 transition-colors duration-300">
+                                <i class="fas fa-hand-holding-water text-2xl text-forest-600 group-hover:text-forest-700 transition-colors duration-300"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Gestion de l'eau</h3>
+                            <p class="text-gray-600">Mise en place de techniques pour une gestion durable des ressources hydriques.</p>
+                            <div class="h-0.5 w-16 bg-forest-300 my-4 group-hover:w-24 transition-all duration-500"></div>
+                            <a href="activites.html#eau" class="text-forest-600 hover:text-forest-800 font-medium inline-flex items-center transition-colors duration-300">
+                                Détails
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Activité 4 -->
+                    <div class="activity-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden group animate-slide-up" style="animation-delay: 0.4s;">
+                        <div class="p-6 flex flex-col items-center text-center">
+                            <div class="w-16 h-16 rounded-full bg-forest-100 flex items-center justify-center mb-4 group-hover:bg-forest-200 transition-colors duration-300">
+                                <i class="fas fa-tractor text-2xl text-forest-600 group-hover:text-forest-700 transition-colors duration-300"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Agriculture Durable</h3>
+                            <p class="text-gray-600">Promotion de pratiques agricoles respectueuses de l'environnement et productives.</p>
+                            <div class="h-0.5 w-16 bg-forest-300 my-4 group-hover:w-24 transition-all duration-500"></div>
+                            <a href="activites.html#agriculture" class="text-forest-600 hover:text-forest-800 font-medium inline-flex items-center transition-colors duration-300">
+                                Détails
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-10">
+                    <a href="activites.html" class="inline-block px-8 py-3 bg-forest-600 hover:bg-forest-700 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-pulse-slow">
+                        En savoir plus
+                    </a>
+                </div>
             </div>
-            <p>Par Yattara Ousmane</p>
-        </div>
-    </footer>
-</main>
+        </section>
+        <!-- Section Blog & Actualités -->
+        <section class="blog py-16 bg-gradient-to-r from-forest-50 to-forest-100 animate-gradient">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12 animate-fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold text-forest-800 mb-4">Blog & Actualités</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Découvrez nos dernières actualités sur l'agroforesterie.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Article 1 -->
+                    <article class="blog-card bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500 animate-slide-up" style="animation-delay: 0.1s;">
+                        <div class="relative overflow-hidden h-56">
+                            <img src="gaf.jpeg" alt="Les bienfaits de l'agroforesterie" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+                                <div class="p-4">
+                                    <span class="inline-block px-3 py-1 bg-forest-500 text-white text-xs font-semibold rounded-full mb-2">Agroforesterie</span>
+                                    <h3 class="text-white font-bold text-xl">Les bienfaits de l'agroforesterie</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-gray-500 text-sm mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span>15 Mai 2023</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Les bienfaits de l'agroforesterie</h3>
+                            <p class="text-gray-600 mb-4">Découvrez comment l'agroforesterie contribue à la préservation des sols et au développement durable.</p>
+                            <a href="blog.html" class="inline-flex items-center text-forest-600 hover:text-forest-800 font-medium transition-colors duration-300">
+                                Lire plus
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 2 -->
+                    <article class="blog-card bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500 animate-slide-up" style="animation-delay: 0.2s;">
+                        <div class="relative overflow-hidden h-56">
+                            <img src="gaf.jpeg" alt="Reboisement : Un défi écologique" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+                                <div class="p-4">
+                                    <span class="inline-block px-3 py-1 bg-forest-500 text-white text-xs font-semibold rounded-full mb-2">Écologie</span>
+                                    <h3 class="text-white font-bold text-xl">Reboisement : Un défi écologique</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-gray-500 text-sm mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span>2 Juin 2023</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Reboisement : Un défi écologique</h3>
+                            <p class="text-gray-600 mb-4">Comment le reboisement peut restaurer les écosystèmes et améliorer la biodiversité ?</p>
+                            <a href="blog.html" class="inline-flex items-center text-forest-600 hover:text-forest-800 font-medium transition-colors duration-300">
+                                Lire plus
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 3 -->
+                    <article class="blog-card bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500 animate-slide-up" style="animation-delay: 0.3s;">
+                        <div class="relative overflow-hidden h-56">
+                            <img src="15.png" alt="Nouvelles techniques agricoles" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+                                <div class="p-4">
+                                    <span class="inline-block px-3 py-1 bg-forest-500 text-white text-xs font-semibold rounded-full mb-2">Innovation</span>
+                                    <h3 class="text-white font-bold text-xl">Nouvelles techniques agricoles</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-gray-500 text-sm mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span>20 Juin 2023</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Nouvelles techniques agricoles</h3>
+                            <p class="text-gray-600 mb-4">Les innovations en agriculture durable qui transforment l'avenir des agriculteurs.</p>
+                            <a href="blog.html" class="inline-flex items-center text-forest-600 hover:text-forest-800 font-medium transition-colors duration-300">
+                                Lire plus
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="text-center mt-10">
+                    <a href="blog.html" class="inline-block px-8 py-3 bg-forest-600 hover:bg-forest-700 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        Voir plus d'articles
+                    </a>
+                </div>
+            </div>
+        </section>
 
+        <!-- Section Galerie & Vidéo -->
+        <section class="gallery py-16">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12 animate-fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold text-forest-800 mb-4">Galerie & Vidéo</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Un aperçu en images et vidéos de nos réalisations.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                    <!-- Image 1 -->
+                    <div class="relative overflow-hidden rounded-xl shadow-lg group animate-slide-up" style="animation-delay: 0.1s;">
+                        <img src="8.png" alt="Galerie AID-G" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-forest-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                            <button class="p-3 bg-white rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-forest-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Image 2 -->
+                    <div class="relative overflow-hidden rounded-xl shadow-lg group animate-slide-up" style="animation-delay: 0.2s;">
+                        <img src="gaf.jpeg" alt="Galerie AID-G" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-forest-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                            <button class="p-3 bg-white rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-forest-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Image 3 -->
+                    <div class="relative overflow-hidden rounded-xl shadow-lg group animate-slide-up" style="animation-delay: 0.3s;">
+                        <img src="7.png" alt="Galerie AID-G" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-forest-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                            <button class="p-3 bg-white rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-forest-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <a href="galerie.html" class="inline-block px-8 py-3 bg-forest-600 hover:bg-forest-700 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        Voir la galerie complète
+                    </a>
+                </div>
+            </div>
+        </section>
 
-    <script src="main.js"></script>
-    <script src="slider.js"></script>
-</body>
+        <!-- Section Contact -->
+        <section class="contact py-16 bg-gradient-to-r from-earth-100 to-earth-200 animate-gradient">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12 animate-fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold text-earth-800 mb-4">Contactez-nous</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Nous sommes à votre disposition pour toute question.</p>
+                </div>
+                
+                <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="md:flex">
+                        <!-- Formulaire de contact -->
+                        <div class="md:w-1/2 p-8 animate-slide-right">
+                            <h3 class="text-2xl font-bold text-earth-700 mb-6">Envoyer un message</h3>
+                            <form action="contact.php" method="POST" class="space-y-4">
+                                <div>
+                                    <label for="nom" class="block text-sm font-medium text-gray-700 mb-1">Votre Nom</label>
+                                    <input type="text" id="nom" name="nom" placeholder="Entrez votre nom" required
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-earth-500 focus:border-earth-500 transition-colors duration-300">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Votre Email</label>
+                                    <input type="email" id="email" name="email" placeholder="Entrez votre email" required
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-earth-500 focus:border-earth-500 transition-colors duration-300">
+                                </div>
+                                <div>
+                                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Votre Message</label>
+                                    <textarea id="message" name="message" rows="5" placeholder="Entrez votre message" required
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-earth-500 focus:border-earth-500 transition-colors duration-300"></textarea>
+                                </div>
+                                <button type="submit" 
+                                    class="w-full px-6 py-3 bg-earth-600 hover:bg-earth-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                                    Envoyer le message
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <!-- Informations de contact -->
+                        <div class="md:w-1/2 bg-earth-gradient text-white p-8 animate-slide-left">
+                            <h3 class="text-2xl font-bold mb-6">Nos coordonnées</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold mb-1">Adresse</h4>
+                                        <p class="text-white/80">Quartier Kipé, Conakry, Guinée</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold mb-1">Téléphone</h4>
+                                        <p class="text-white/80">+224 620 12 34 56</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold mb-1">Email</h4>
+                                        <p class="text-white/80">daoucamarat@gmail.com</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="pt-6">
+                                    <h4 class="text-lg font-semibold mb-3">Suivez-nous</h4>
+                                    <div class="flex space-x-3">
+                                        <a href="https://facebook.com" target="_blank" class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors duration-300">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                        <a href="https://twitter.com" target="_blank" class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors duration-300">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a href="https://instagram.com" target="_blank" class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors duration-300">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                        <a href="https://linkedin.com" target="_blank" class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors duration-300">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carte Google Maps -->
+                <div class="mt-12 rounded-xl overflow-hidden shadow-lg animate-fade-in">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.855326968228!2d-122.0842496846928!3d37.422065979825056!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3e066be98fdd14c!2sGoogleplex!5e0!3m2!1sfr!2sfr!4v1633094828081"
+                        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" class="w-full">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-forest-900 text-white py-12">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- À propos -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">À propos d'AID-G</h3>
+                        <p class="text-gray-300 mb-4">AID-G est une organisation dédiée à la promotion de l'agroforesterie durable en Guinée pour un avenir plus vert et plus prospère.</p>
+                        <div class="flex space-x-3">
+                            <a href="https://facebook.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://twitter.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Liens rapides -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Liens rapides</h3>
+                        <ul class="space-y-2">
+                            <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Accueil
+                            </a></li>
+                            <li><a href="a-propos.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                À Propos
+                            </a></li>
+                            <li><a href="activites.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Nos Activités
+                            </a></li>
+                            <li><a href="blog.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Blog & Actualités
+                            </a></li>
+                            <li><a href="galerie.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Galerie
+                            </a></li>
+                            <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Contact
+                            </a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Activités -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Nos Activités</h3>
+                        <ul class="space-y-2">
+                            <li><a href="activites.html#reboisement" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Reboisement
+                            </a></li>
+                            <li><a href="activites.html#formation" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Formation
+                            </a></li>
+                            <li><a href="activites.html#eau" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Gestion de l'eau
+                            </a></li>
+                            <li><a href="activites.html#agriculture" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Agriculture Durable
+                            </a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Contact -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Contact</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-forest-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <span class="text-gray-300">Quartier Kipé, Conakry, Guinée</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-forest-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                </svg>
+                                <span class="text-gray-300">+224 620 12 34 56</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-forest-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                <span class="text-gray-300">daoucamarat@gmail.com</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="mt-6">
+                            <h4 class="font-semibold mb-2">Inscrivez-vous à notre newsletter</h4>
+                            <form action="#" method="POST" class="flex">
+                                <input type="email" placeholder="Votre email" required
+                                    class="flex-1 px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/10 text-white placeholder-gray-400">
+                                <button type="submit" class="px-4 py-2 bg-forest-600 hover:bg-forest-700 rounded-r-lg transition-colors duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-12 pt-8 border-t border-white/10">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                            &copy; 2023 AID-G - Association pour l'Innovation et le Développement en Guinée. Tous droits réservés.
+                        </p>
+                        <div class="flex space-x-6">
+                            <a href="mentions-legales.html" class="text-gray-400 hover:text-white text-sm transition-colors duration-300">Mentions légales</a>
+                            <a href="politique-confidentialite.html" class="text-gray-400 hover:text-white text-sm transition-colors duration-300">Politique de confidentialité</a>
+                            <a href="contact.html" class="text-gray-400 hover:text-white text-sm transition-colors duration-300">Contact</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Bouton retour en haut -->
+        <button id="back-to-top" class="fixed bottom-6 right-6 z-50 p-3 bg-forest-600 text-white rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-forest-700 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+        </button>
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+        <script>
+            // Navigation mobile
+            document.getElementById('mobile-menu-button').addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+
+            // Slider
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slide');
+            const indicators = document.querySelectorAll('.slide-indicator');
+            
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.style.transform = `translateX(${100 * (i - index)}%)`;
+                });
+                
+                indicators.forEach((indicator, i) => {
+                    indicator.classList.toggle('active', i === index);
+                    indicator.classList.toggle('bg-opacity-50', i !== index);
+                    indicator.classList.toggle('bg-opacity-100', i === index);
+                });
+                
+                currentSlide = index;
+            }
+            
+            document.getElementById('prev-slide').addEventListener('click', () => {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            });
+            
+            document.getElementById('next-slide').addEventListener('click', () => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            });
+            
+            indicators.forEach((indicator, i) => {
+                indicator.addEventListener('click', () => {
+                    showSlide(i);
+                });
+            });
+            
+            // Auto-slide
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }, 5000);
+            
+            // Initialiser le slider
+            showSlide(0);
+            
+            // Bouton retour en haut
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        </script>
+    </body>
 </html>
-
-
-   
