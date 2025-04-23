@@ -13,41 +13,43 @@
                 theme: {
                     extend: {
                         colors: {
-                            forest: {
-                                50: '#f0f9f1',
-                                100: '#dcf1de',
-                                200: '#bae3bf',
-                                300: '#8ece96',
-                                400: '#5fb36a',
-                                500: '#3e9448',
-                                600: '#2e7738',
-                                700: '#265f2e',
-                                800: '#214c27',
-                                900: '#1c3f22',
-                                950: '#0c2211',
+                            'forest': {
+                                50: '#f2f8f2',
+                                100: '#e0efe0',
+                                200: '#c1dfc1',
+                                300: '#92c692',
+                                400: '#5fa75f',
+                                500: '#3f8c3f',
+                                600: '#2e712e',
+                                700: '#265a26',
+                                800: '#224822',
+                                900: '#1e3c1e',
+                                950: '#0f210f',
                             },
-                            earth: {
-                                50: '#f9f7ed',
-                                100: '#f1ecd3',
-                                200: '#e4d9a7',
-                                300: '#d4c176',
-                                400: '#c6a950',
-                                500: '#b89039',
-                                600: '#9c722d',
-                                700: '#7f5726',
-                                800: '#6a4825',
-                                900: '#5a3d23',
-                                950: '#332011',
+                            'earth': {
+                                50: '#f9f6f3',
+                                100: '#f0e9e1',
+                                200: '#e0ceb8',
+                                300: '#d0b08e',
+                                400: '#c1946a',
+                                500: '#b17e53',
+                                600: '#a06a47',
+                                700: '#85553c',
+                                800: '#6e4735',
+                                900: '#5b3c2e',
+                                950: '#301e17',
                             },
                         },
                         animation: {
-                            'fade-in': 'fadeIn 1s ease-in-out',
+                            'fade-in': 'fadeIn 0.8s ease-in-out',
                             'slide-up': 'slideUp 0.8s ease-in-out',
-                            'slide-right': 'slideRight 0.8s ease-in-out',
+                            'slide-down': 'slideDown 0.8s ease-in-out',
                             'slide-left': 'slideLeft 0.8s ease-in-out',
-                            'float': 'float 3s ease-in-out infinite',
-                            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                            'gradient': 'gradient 8s ease infinite',
+                            'slide-right': 'slideRight 0.8s ease-in-out',
+                            'bounce-slow': 'bounce 3s infinite',
+                            'pulse-slow': 'pulse 3s infinite',
+                            'float': 'float 6s ease-in-out infinite',
+                            'spin-slow': 'spin 8s linear infinite',
                         },
                         keyframes: {
                             fadeIn: {
@@ -55,34 +57,30 @@
                                 '100%': { opacity: '1' },
                             },
                             slideUp: {
-                                '0%': { transform: 'translateY(50px)', opacity: '0' },
+                                '0%': { transform: 'translateY(30px)', opacity: '0' },
                                 '100%': { transform: 'translateY(0)', opacity: '1' },
                             },
-                            slideRight: {
-                                '0%': { transform: 'translateX(-50px)', opacity: '0' },
-                                '100%': { transform: 'translateX(0)', opacity: '1' },
+                            slideDown: {
+                                '0%': { transform: 'translateY(-30px)', opacity: '0' },
+                                '100%': { transform: 'translateY(0)', opacity: '1' },
                             },
                             slideLeft: {
-                                '0%': { transform: 'translateX(50px)', opacity: '0' },
+                                '0%': { transform: 'translateX(30px)', opacity: '0' },
+                                '100%': { transform: 'translateX(0)', opacity: '1' },
+                            },
+                            slideRight: {
+                                '0%': { transform: 'translateX(-30px)', opacity: '0' },
                                 '100%': { transform: 'translateX(0)', opacity: '1' },
                             },
                             float: {
                                 '0%, 100%': { transform: 'translateY(0)' },
                                 '50%': { transform: 'translateY(-10px)' },
                             },
-                            gradient: {
-                                '0%': { backgroundPosition: '0% 50%' },
-                                '50%': { backgroundPosition: '100% 50%' },
-                                '100%': { backgroundPosition: '0% 50%' },
-                            },
                         },
                         backgroundImage: {
-                            'earth-gradient': 'linear-gradient(135deg, #9c722d 0%, #6a4825 100%)',
-                            'forest-gradient': 'linear-gradient(135deg, #3e9448 0%, #214c27 100%)',
-                        },
-                        backgroundSize: {
-                            'gradient-size': '200% 200%',
-                        },
+                            'green-gradient': 'linear-gradient(135deg, #2e712e 0%, #5fa75f 50%, #92c692 100%)',
+                            'earth-gradient': 'linear-gradient(135deg, #6e4735 0%, #a06a47 50%, #d0b08e 100%)',
+                        }
                     }
                 }
             }
@@ -115,50 +113,43 @@
     </head>
     <body class="bg-gray-50 text-gray-800">
         <!-- Header -->
-        <header class="bg-white shadow-md sticky top-0 z-50">
-            <div class="container mx-auto px-4">
-                <div class="flex justify-between items-center py-4">
-                    <!-- Logo -->
-                    <a href="index.html" class="flex items-center space-x-2">
-                        <img src="gaf.jpeg" alt="GAF Logo" class="h-12">
-                        <div>
-                            <h1 class="text-2xl font-bold text-forest-700">GAF</h1>
-                            <p class="text-xs text-gray-600">Innovation et Développement</p>
-                        </div>
-                    </a>
-                    
-                    <!-- Navigation Desktop -->
-                    <nav class="hidden md:flex space-x-6">
-                        <li><a href="index.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Accueil</a></li>
-                        <li><a href="a-propos.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">À Propos</a></li>
-                        <li><a href="activites.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Nos Activités</a></li>
-                        <li><a href="blog.html" class="px-3 py-2 rounded-md text-white bg-forest-600 hover:bg-forest-700 transition-colors duration-300 font-medium">Blog & Actualités</a></li>
-                        <li><a href="contact.html" class="px-3 py-2 rounded-md text-white hover:bg-forest-700 transition-colors duration-300 font-medium">Contact</a></li>
-                    </nav>
-                    
-                    <!-- Bouton Contact -->
-                    <a href="contact.html" class="hidden md:inline-block px-4 py-2 bg-forest-600 hover:bg-forest-700 text-white rounded-lg transition-colors duration-300">
-                        Nous Contacter
-                    </a>
-                    
-                    <!-- Menu Mobile Button -->
-                    <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-forest-600 focus:outline-none">
+        <header class="fixed w-full bg-forest-900 text-white shadow-md z-50 transition-all duration-300" id="navbar">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="logo flex items-center">
+                    <img src="gaf.jpeg" alt="gaf" class="h-14 w-auto rounded-lg shadow-sm mr-3 transition-transform duration-500 hover:scale-105">
+                    <span class="font-bold text-xl md:text-2xl bg-clip-text text-transparent bg-green-gradient animate-gradient">GAF</span>
+                </div>
+                
+                <!-- Menu mobile toggle -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="flex items-center p-2 rounded-md text-forest-600 hover:text-forest-800 hover:bg-forest-100 transition-colors duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
                 </div>
                 
-                <!-- Menu Mobile -->
-                <div id="mobile-menu" class="md:hidden hidden pb-4">
-                    <nav class="flex flex-col space-y-3">
+                <!-- Navigation desktop -->
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-1">
                         <li><a href="index.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Accueil</a></li>
-                        <li><a href="a-propos.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">À Propos</a></li>
+                        <li><a href="a-propos.html" class="px-3 py-2 rounded-md text-white bg-forest-600 hover:bg-forest-700 transition-colors duration-300 font-medium">À Propos</a></li>
                         <li><a href="activites.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Nos Activités</a></li>
-                        <li><a href="blog.html" class="px-3 py-2 rounded-md text-white bg-forest-600 hover:bg-forest-700 transition-colors duration-300 font-medium">Blog & Actualités</a></li>
+                        <li><a href="blog.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Blog & Actualités</a></li>
                         <li><a href="contact.html" class="px-3 py-2 rounded-md text-white hover:bg-forest-700 transition-colors duration-300 font-medium">Contact</a></li>
-                    </nav>
-                </div>
+                    </ul>
+                </nav>
+            </div>
+            
+            <!-- Menu mobile -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 shadow-inner">
+                <ul class="py-2 px-4 space-y-1">
+                    <li><a href="index.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">Accueil</a></li>
+                    <li><a href="a-propos.html" class="block px-3 py-2 rounded-md text-white bg-forest-600 hover:bg-forest-700 transition-colors duration-300">À Propos</a></li>
+                    <li><a href="activites.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">Nos Activités</a></li>
+                    <li><a href="blog.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">Blog & Actualités</a></li>
+                    <li><a href="contact.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">Contact</a></li>
+                </ul>
             </div>
         </header>
 
