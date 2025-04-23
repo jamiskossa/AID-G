@@ -3,137 +3,824 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>AIG Agroforesterie Intégrée et Durable en Guinée</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="responsive.css">
+    <title>Nos Activités - GAF Guinéenne d'Agroforesterie</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'forest': {
+                            50: '#f2f8f2',
+                            100: '#e0efe0',
+                            200: '#c1dfc1',
+                            300: '#92c692',
+                            400: '#5fa75f',
+                            500: '#3f8c3f',
+                            600: '#2e712e',
+                            700: '#265a26',
+                            800: '#224822',
+                            900: '#1e3c1e',
+                            950: '#0f210f',
+                        },
+                        'earth': {
+                            50: '#f9f6f3',
+                            100: '#f0e9e1',
+                            200: '#e0ceb8',
+                            300: '#d0b08e',
+                            400: '#c1946a',
+                            500: '#b17e53',
+                            600: '#a06a47',
+                            700: '#85553c',
+                            800: '#6e4735',
+                            900: '#5b3c2e',
+                            950: '#301e17',
+                        },
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-in-out',
+                        'slide-down': 'slideDown 0.8s ease-in-out',
+                        'slide-left': 'slideLeft 0.8s ease-in-out',
+                        'slide-right': 'slideRight 0.8s ease-in-out',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideLeft: {
+                            '0%': { transform: 'translateX(30px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        slideRight: {
+                            '0%': { transform: 'translateX(-30px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                    },
+                    backgroundImage: {
+                        'green-gradient': 'linear-gradient(135deg, #2e712e 0%, #5fa75f 50%, #92c692 100%)',
+                        'earth-gradient': 'linear-gradient(135deg, #6e4735 0%, #a06a47 50%, #d0b08e 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes gradientBg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradientBg 8s ease infinite;
+        }
+        
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        /* Parallax effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3f8c3f;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2e712e;
+        }
+    </style>
 </head>
-<body>
-    <main>
-    <header>
-        <div class="logo">
-            <img src="gaf.jpeg" alt="Logo AID-G">
-        </div>
-        <nav>
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="nav-list">
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="a-propos.html">À Propos</a></li>
-                <li><a href="activites.html">Nos Activités</a></li>
-                <li><a href="blog.html">Blog & Actualités</a></li>
-                <li><a href="galerie.html">Galerie & Vidéo</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <!-- Bannière dynamique -->
-    <section class="banner">
-        <!-- Diaporama -->
-        <div class="slideshow-container">
-            <div class="slide fade">
-                <img src="1.png" alt="Logo AID-G">
-            </div>
-            <div class="slide fade">
-                <img src="3.png" alt="Logo AID-G">
-            </div>
-            <div class="slide fade">
-                <img src="2.png" alt="Logo AID-G">
-            </div>
-        </div>
-        
-    </section>
 
-    <!-- Présentation du projet -->
-<section class="presentation">
-    <div class="container">
-        <h2>Agroforesterie Intégrée et Durable en Guinée</h2>
-        <h2>Notre mission</h2>
-        <p>Promouvoir une agriculture durable et respectueuse de l’environnement en Guinée grâce à des techniques d’agroforesterie innovantes.</p>
-        <a href="a-propos.html" class="btn">En savoir plus</a>
-    </div>
-</section>
+<body class="font-sans text-gray-800 overflow-x-hidden">
+    <main class="relative">
+        <!-- Header avec navigation -->
+        <header class="fixed w-full bg-forest-900 text-white shadow-md z-50 transition-all duration-300" id="navbar">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="logo flex items-center">
+                    <img src="gaf.jpeg" alt="gaf" class="h-14 w-auto rounded-lg shadow-sm mr-3 transition-transform duration-500 hover:scale-105">
+                    <span class="font-bold text-xl md:text-2xl bg-clip-text text-transparent bg-green-gradient animate-gradient">GAF</span>
+                </div>
+                
+                <!-- Menu mobile toggle -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="flex items-center p-2 rounded-md text-forest-600 hover:text-forest-800 hover:bg-forest-100 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Navigation desktop -->
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-1">
+                        <li><a href="index.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Accueil</a></li>
+                        <li><a href="a-propos.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">À Propos</a></li>
+                        <li><a href="activites.html" class="px-3 py-2 rounded-md text-white bg-forest-600 hover:bg-forest-700 transition-colors duration-300 font-medium">Nos Activités</a></li>
+                        <li><a href="blog.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Blog & Actualités</a></li>
+                        <li><a href="galerie.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Galerie & Vidéo</a></li>
+                        <li><a href="contact.html" class="px-3 py-2 rounded-md text-white hover:bg-forest-700 transition-colors duration-300 font-medium">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <!-- Menu mobile -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 shadow-inner">
+                <ul class="py-2 px-4 space-y-1">
+                    <li><a href="index.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">Accueil</a></li>
+                    <li><a href="a-propos.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">À Propos</a></li>
+                    <li><a href="activites.html" class="block px-3 py-2 rounded-md text-white bg-forest-600 hover:bg-forest-700 transition-colors duration-300">Nos Activités</a></li>
+                    <li><a href="blog.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">Blog & Actualités</a></li>
+                    <li><a href="galerie.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">Galerie & Vidéo</a></li>
+                    <li><a href="contact.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 mt-2">Contact</a></li>
+                </ul>
+            </div>
+        </header>
 
-<!-- Techniques d'agroforesterie -->
-<section id="techniques">
-    <div class="container">
-        <h2>Techniques d'agroforesterie</h2>
-        <div class="technique-grid">
-            <div class="technique">
-                <img src="10.png" alt="Logo AID-G" class="technique-img">
-                <p>Description de la technique...</p>
+        <!-- Bannière dynamique -->
+        <section class="banner pt-20 relative h-[60vh] overflow-hidden">
+            <div class="slideshow-container h-full">
+                <div class="slide active h-full">
+                    <img src="1.png" alt="Agroforesterie" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                        <div class="text-center text-white px-4 animate-fade-in">
+                            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Nos Activités</h1>
+                            <p class="text-xl md:text-2xl max-w-3xl mx-auto">Découvrez nos initiatives pour une agroforesterie durable en Guinée</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide h-full">
+                    <img src="3.png" alt="Développement durable" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                        <div class="text-center text-white px-4">
+                            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Nos Activités</h1>
+                            <p class="text-xl md:text-2xl max-w-3xl mx-auto">Préserver les ressources pour les générations futures</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide h-full">
+                    <img src="2.png" alt="Communautés locales" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                        <div class="text-center text-white px-4">
+                            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Nos Activités</h1>
+                            <p class="text-xl md:text-2xl max-w-3xl mx-auto">Autonomisation des agriculteurs guinéens</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- Ajoutez plus de techniques ici -->
-            <div class="technique">
-                <img src="10.png" alt="Logo AID-G" class="technique-img">
-                <p>Description de la technique...</p>
-            </div>
-            <div class="technique">
-                <img src="10.png" alt="Logo AID-G" class="technique-img">
-                <p>Description de la technique...</p>
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
 
-<!-- Formations et sensibilisation -->
-<section id="formations">
-    <div class="container">
-        <h2>Formations et sensibilisation</h2>
-        <div class="calendar">
-            <img src="16.png" alt="Logo AID-G" class="calendar-img">
-            <h3>Prochaines formations</h3>
-            <ul class="formations-list">
-                <li>Formation 1 - Date</li>
-                <!-- Ajoutez plus de formations ici -->
-                <li>Formation 2 - Date</li>
-                <li>Formation 3 - Date</li>
-            </ul>
-        </div>
-        
-    </div>
-</section>
-    <section id="temoignages">
-        <h2>Témoignages des agriculteurs</h2>
-        <div class="testimonial-slider">
-            <div class="testimonial">
-                <img src="13.png" alt="Logo AID-G">
-                <p>"Citation de l'agriculteur..."</p>
+        <!-- Présentation du projet -->
+        <section class="py-16 bg-gradient-to-r from-forest-50 to-forest-100 animate-gradient">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-forest-800 mb-6 animate-fade-in">Agroforesterie Intégrée et Durable en Guinée</h2>
+                    <h3 class="text-2xl font-bold text-forest-700 mb-4 animate-fade-in">Notre mission</h3>
+                    <p class="text-lg text-gray-700 mb-8 animate-fade-in">Promouvoir une agriculture durable et respectueuse de l'environnement en Guinée grâce à des techniques d'agroforesterie innovantes.</p>
+                    <a href="a-propos.html" class="inline-block px-8 py-3 bg-forest-600 hover:bg-forest-700 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-fade-in">
+                        En savoir plus
+                    </a>
+                </div>
             </div>
-            <!-- Ajoutez plus de témoignages ici -->
-            <div class="testimonial">
-                <img src="13.png" alt="Logo AID-G">
-                <p>"Citation de l'agriculteur..."</p>
-            </div>
-            <div class="testimonial">
-                <img src="13.png" alt="Logo AID-G">
-                <p>"Citation de l'agriculteur..."</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 AIG Agroforesterie Intégrée et Durable en Guinée</p>
-            <div class="social-icons">
-                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-            <p>Par Yattara Ousmane</p>
-        </div>
-    </footer>
-
-</main>
-
-    <script src="slider.js"></script>
-    <script src="main.js"></script>
-</body>
-</html>
+        <!-- Techniques d'agroforesterie -->
+        <section id="reboisement" class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12 animate-fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold text-forest-800 mb-4">Techniques d'agroforesterie</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Découvrez nos méthodes innovantes pour une agriculture durable</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                        <!-- Technique 1 -->
+                                        <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500 animate-slide-up" style="animation-delay: 0.1s;">
+                                            <div class="relative h-56 overflow-hidden">
+                                                <img src="10.png" alt="Technique d'agroforesterie" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                                <div class="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+                                                    <div class="p-4">
+                                                        <span class="inline-block px-3 py-1 bg-forest-500 text-white text-xs font-semibold rounded-full mb-2">Reboisement</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="p-6">
+                                                <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Reboisement stratégique</h3>
+                                                <p class="text-gray-600 mb-4">Plantation d'arbres adaptés aux écosystèmes locaux pour restaurer les zones dégradées et lutter contre l'érosion des sols.</p>
+                                                <a href="#" class="inline-flex items-center text-forest-600 hover:text-forest-800 font-medium transition-colors duration-300">
+                                                    En savoir plus
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Technique 2 -->
+                                        <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500 animate-slide-up" style="animation-delay: 0.2s;">
+                                            <div class="relative h-56 overflow-hidden">
+                                                <img src="10.png" alt="Technique d'agroforesterie" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                                <div class="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+                                                    <div class="p-4">
+                                                        <span class="inline-block px-3 py-1 bg-forest-500 text-white text-xs font-semibold rounded-full mb-2">Biodiversité</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="p-6">
+                                                <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Cultures intercalaires</h3>
+                                                <p class="text-gray-600 mb-4">Combinaison de différentes espèces végétales pour maximiser l'utilisation de l'espace et favoriser la biodiversité.</p>
+                                                <a href="#" class="inline-flex items-center text-forest-600 hover:text-forest-800 font-medium transition-colors duration-300">
+                                                    En savoir plus
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Technique 3 -->
+                                        <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500 animate-slide-up" style="animation-delay: 0.3s;">
+                                            <div class="relative h-56 overflow-hidden">
+                                                <img src="10.png" alt="Technique d'agroforesterie" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                                <div class="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+                                                    <div class="p-4">
+                                                        <span class="inline-block px-3 py-1 bg-forest-500 text-white text-xs font-semibold rounded-full mb-2">Innovation</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="p-6">
+                                                <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Gestion intégrée</h3>
+                                                <p class="text-gray-600 mb-4">Approche holistique combinant arbres, cultures et élevage pour créer des systèmes agricoles durables et résilients.</p>
+                                                <a href="#" class="inline-flex items-center text-forest-600 hover:text-forest-800 font-medium transition-colors duration-300">
+                                                    En savoir plus
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                    
+                            <!-- Formations et sensibilisation -->
+                            <section id="formation" class="py-16 bg-gradient-to-r from-forest-50 to-forest-100 animate-gradient">
+                                <div class="container mx-auto px-4">
+                                    <div class="text-center mb-12 animate-fade-in">
+                                        <h2 class="text-3xl md:text-4xl font-bold text-forest-800 mb-4">Formations et sensibilisation</h2>
+                                        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Renforcement des capacités des agriculteurs locaux</p>
+                                    </div>
+                                    
+                                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                                        <div class="md:flex">
+                                            <div class="md:w-1/2 p-8">
+                                                <div class="animate-slide-right">
+                                                    <h3 class="text-2xl font-bold text-forest-700 mb-6">Prochaines formations</h3>
+                                                    <ul class="space-y-4">
+                                                        <li class="flex items-start p-4 bg-forest-50 rounded-lg">
+                                                            <div class="flex-shrink-0 h-12 w-12 rounded-full bg-forest-100 flex items-center justify-center mr-4">
+                                                                <i class="fas fa-calendar-alt text-forest-600"></i>
+                                                            </div>
+                                                            <div>
+                                                                <h4 class="font-bold text-forest-800">Formation aux techniques de reboisement</h4>
+                                                                <p class="text-gray-600">15 Juillet 2024 - Conakry</p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="flex items-start p-4 bg-forest-50 rounded-lg">
+                                                            <div class="flex-shrink-0 h-12 w-12 rounded-full bg-forest-100 flex items-center justify-center mr-4">
+                                                                <i class="fas fa-calendar-alt text-forest-600"></i>
+                                                            </div>
+                                                            <div>
+                                                                <h4 class="font-bold text-forest-800">Atelier sur l'agriculture durable</h4>
+                                                                <p class="text-gray-600">22 Août 2024 - Kindia</p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="flex items-start p-4 bg-forest-50 rounded-lg">
+                                                            <div class="flex-shrink-0 h-12 w-12 rounded-full bg-forest-100 flex items-center justify-center mr-4">
+                                                                <i class="fas fa-calendar-alt text-forest-600"></i>
+                                                            </div>
+                                                            <div>
+                                                                <h4 class="font-bold text-forest-800">Sensibilisation à la gestion de l'eau</h4>
+                                                                <p class="text-gray-600">10 Septembre 2024 - Mamou</p>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="mt-6">
+                                                        <a href="contact.html" class="inline-block px-6 py-3 bg-forest-600 hover:bg-forest-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-md">
+                                                            S'inscrire aux formations
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="md:w-1/2 relative overflow-hidden">
+                                                <img src="16.png" alt="Formations" class="w-full h-full object-cover">
+                                                <div class="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent flex items-end">
+                                                    <div class="p-6">
+                                                        <h3 class="text-2xl font-bold text-white mb-2">Développement des compétences</h3>
+                                                        <p class="text-white text-opacity-90">Nos formations visent à autonomiser les agriculteurs avec des techniques durables</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                    
+                            <!-- Témoignages -->
+                            <section id="temoignages" class="py-16">
+                                <div class="container mx-auto px-4">
+                                    <div class="text-center mb-12 animate-fade-in">
+                                        <h2 class="text-3xl md:text-4xl font-bold text-forest-800 mb-4">Témoignages des agriculteurs</h2>
+                                        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Découvrez l'impact de nos activités sur les communautés locales</p>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                        <!-- Témoignage 1 -->
+                                        <div class="bg-white rounded-xl shadow-lg p-6 animate-slide-up" style="animation-delay: 0.1s;">
+                                            <div class="flex flex-col items-center text-center">
+                                                <div class="w-20 h-20 rounded-full overflow-hidden mb-4 border-4 border-forest-200">
+                                                    <img src="13.png" alt="Témoignage" class="w-full h-full object-cover">
+                                                </div>
+                                                <div class="mb-4">
+                                                    <div class="flex text-yellow-400">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                </div>
+                                                <p class="text-gray-600 italic mb-4">"Grâce aux techniques d'agroforesterie apprises avec GAF, j'ai pu diversifier mes cultures et augmenter mes revenus tout en préservant mes terres."</p>
+                                                <h4 class="font-bold text-forest-700">Mamadou Diallo</h4>
+                                                <p class="text-sm text-gray-500">Agriculteur à Kindia</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Témoignage 2 -->
+                                        <div class="bg-white rounded-xl shadow-lg p-6 animate-slide-up" style="animation-delay: 0.2s;">
+                                            <div class="flex flex-col items-center text-center">
+                                                <div class="w-20 h-20 rounded-full overflow-hidden mb-4 border-4 border-forest-200">
+                                                    <img src="13.png" alt="Témoignage" class="w-full h-full object-cover">
+                                                </div>
+                                                <div class="mb-4">
+                                                    <div class="flex text-yellow-400">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star-half-alt"></i>
+                                                    </div>
+                                                </div>
+                                                <p class="text-gray-600 italic mb-4">"Les formations sur la gestion de l'eau m'ont permis de mieux irriguer mes cultures même pendant la saison sèche. Ma production a doublé cette année!"</p>
+                                                <h4 class="font-bold text-forest-700">Fatoumata Camara</h4>
+                                                <p class="text-sm text-gray-500">Agricultrice à Mamou</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Témoignage 3 -->
+                                        <div class="bg-white rounded-xl shadow-lg p-6 animate-slide-up" style="animation-delay: 0.3s;">
+                                            <div class="flex flex-col items-center text-center">
+                                                <div class="w-20 h-20 rounded-full overflow-hidden mb-4 border-4 border-forest-200">
+                                                    <img src="13.png" alt="Témoignage" class="w-full h-full object-cover">
+                                                </div>
+                                                <div class="mb-4">
+                                                    <div class="flex text-yellow-400">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                </div>
+                                                <p class="text-gray-600 italic mb-4">"Le reboisement de notre village a transformé notre environnement. Nous avons maintenant plus d'ombre, moins d'érosion et une meilleure qualité de l'air."</p>
+                                                <h4 class="font-bold text-forest-700">Ibrahima Sow</h4>
+                                                <p class="text-sm text-gray-500">Chef de village à Labé</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                    
+                            <!-- Section Gestion de l'eau -->
+                            <section id="eau" class="py-16 bg-gradient-to-r from-forest-50 to-forest-100 animate-gradient">
+                                <div class="container mx-auto px-4">
+                                    <div class="text-center mb-12 animate-fade-in">
+                                        <h2 class="text-3xl md:text-4xl font-bold text-forest-800 mb-4">Gestion durable de l'eau</h2>
+                                        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Optimisation des ressources hydriques pour l'agriculture</p>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                        <div class="bg-white rounded-xl shadow-lg overflow-hidden animate-slide-right">
+                                            <div class="md:flex">
+                                                <div class="md:w-2/5 relative">
+                                                    <img src="gaf.jpeg" alt="Gestion de l'eau" class="w-full h-full object-cover">
+                                                    <div class="absolute inset-0 bg-forest-900/30 flex items-center justify-center">
+                                                        <span class="text-5xl text-white animate-pulse-slow">💧</span>
+                                                    </div>
+                                                </div>
+                                                <div class="md:w-3/5 p-6">
+                                                    <h3 class="text-xl font-bold text-forest-700 mb-3">Collecte des eaux de pluie</h3>
+                                                    <p class="text-gray-600 mb-4">Mise en place de systèmes de collecte et de stockage des eaux pluviales pour une utilisation pendant les périodes sèches.</p>
+                                                    <ul class="space-y-2 mb-4">
+                                                        <li class="flex items-start">
+                                                            <svg class="h-5 w-5 text-forest-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                            <span>Réservoirs de stockage</span>
+                                                        </li>
+                                                        <li class="flex items-start">
+                                                            <svg class="h-5 w-5 text-forest-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                            <span>Systèmes de filtration</span>
+                                                        </li>
+                                                        <li class="flex items-start">
+                                                            <svg class="h-5 w-5 text-forest-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                            <span>Distribution efficace</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-white rounded-xl shadow-lg overflow-hidden animate-slide-left">
+                                            <div class="md:flex">
+                                                <div class="md:w-2/5 relative">
+                                                    <img src="gaf.jpeg" alt="Irrigation" class="w-full h-full object-cover">
+                                                    <div class="absolute inset-0 bg-forest-900/30 flex items-center justify-center">
+                                                        <span class="text-5xl text-white animate-pulse-slow">🌱</span>
+                                                    </div>
+                                                </div>
+                                                <div class="md:w-3/5 p-6">
+                                                    <h3 class="text-xl font-bold text-forest-700 mb-3">Irrigation goutte-à-goutte</h3>
+                                                    <p class="text-gray-600 mb-4">Techniques d'irrigation économes en eau qui permettent de cibler directement les racines des plantes.</p>
+                                                    <ul class="space-y-2 mb-4">
+                                                        <li class="flex items-start">
+                                                            <svg class="h-5 w-5 text-forest-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                            <span>Économie d'eau jusqu'à 70%</span>
+                                                        </li>
+                                                        <li class="flex items-start">
+                                                            <svg class="h-5 w-5 text-forest-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                            <span>Réduction de l'évaporation</span>
+                                                        </li>
+                                                        <li class="flex items-start">
+                                                            <svg class="h-5 w-5 text-forest-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                            <span>Meilleure croissance des plantes</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                    
+                            <!-- Section Agriculture Durable -->
+                            <section id="agriculture" class="py-16">
+                                <div class="container mx-auto px-4">
+                                    <div class="text-center mb-12 animate-fade-in">
+                                        <h2 class="text-3xl md:text-4xl font-bold text-forest-800 mb-4">Agriculture Durable</h2>
+                                        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Pratiques agricoles respectueuses de l'environnement</p>
+                                    </div>
+                                    
+                                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                                            <!-- Pratique 1 -->
+                                            <div class="p-6 border-b md:border-b-0 md:border-r border-gray-200 animate-slide-up" style="animation-delay: 0.1s;">
+                                                <div class="flex flex-col items-center text-center">
+                                                    <div class="w-16 h-16 rounded-full bg-forest-100 flex items-center justify-center mb-4">
+                                                        <i class="fas fa-seedling text-2xl text-forest-600"></i>
+                                                    </div>
+                                                    <h3 class="text-xl font-bold mb-3 text-forest-700">Rotation des cultures</h3>
+                                                    <p class="text-gray-600">Alternance planifiée de différentes cultures sur une même parcelle pour préserver la fertilité des sols.</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Pratique 2 -->
+                                            <div class="p-6 border-b md:border-b-0 md:border-r border-gray-200 animate-slide-up" style="animation-delay: 0.2s;">
+                                                <div class="flex flex-col items-center text-center">
+                                                    <div class="w-16 h-16 rounded-full bg-forest-100 flex items-center justify-center mb-4">
+                                                        <i class="fas fa-bug text-2xl text-forest-600"></i>
+                                                    </div>
+                                                    <h3 class="text-xl font-bold mb-3 text-forest-700">Lutte biologique</h3>
+                                                    <p class="text-gray-600">Utilisation d'organismes vivants pour contrôler les ravageurs et réduire l'usage de pesticides chimiques.</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Pratique 3 -->
+                                            <div class="p-6 border-b lg:border-b-0 lg:border-r border-gray-200 animate-slide-up" style="animation-delay: 0.3s;">
+                                                <div class="flex flex-col items-center text-center">
+                                                    <div class="w-16 h-16 rounded-full bg-forest-100 flex items-center justify-center mb-4">
+                                                        <i class="fas fa-recycle text-2xl text-forest-600"></i>
+                                                    </div>
+                                                    <h3 class="text-xl font-bold mb-3 text-forest-700">Compostage</h3>
+                                                    <p class="text-gray-600">Transformation des déchets organiques en engrais naturel riche en nutriments pour les cultures.</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Pratique 4 -->
+                                            <div class="p-6 animate-slide-up" style="animation-delay: 0.4s;">
+                                                <div class="flex flex-col items-center text-center">
+                                                    <div class="w-16 h-16 rounded-full bg-forest-100 flex items-center justify-center mb-4">
+                                                        <i class="fas fa-leaf text-2xl text-forest-600"></i>
+                                                    </div>
+                                                    <h3 class="text-xl font-bold mb-3 text-forest-700">Cultures de couverture</h3>
+                                                    <p class="text-gray-600">Plantation d'espèces végétales spécifiques pour protéger et enrichir le sol entre les périodes de culture.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-12 text-center">
+                                        <a href="contact.html" class="inline-block px-8 py-3 bg-forest-600 hover:bg-forest-700 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                                            Participer à nos projets
+                                        </a>
+                                    </div>
+                                </div>
+                            </section>
+                    
+                            <!-- Footer -->
+                            <footer class="bg-forest-900 text-white py-12">
+                                <div class="container mx-auto px-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                                        <!-- À propos -->
+                                        <div>
+                                            <h3 class="text-xl font-bold mb-4">À propos de GAF</h3>
+                                            <p class="text-gray-300 mb-4">GAF est un projet dédié à la promotion de l'agroforesterie durable en Guinée pour un avenir plus vert et plus prospère.</p>
+                                            <div class="flex space-x-3">
+                                                <a href="https://facebook.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                                                    <i class="fab fa-facebook-f"></i>
+                                                </a>
+                                                <a href="https://twitter.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                                                    <i class="fab fa-twitter"></i>
+                                                </a>
+                                                <a href="https://instagram.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                                                    <i class="fab fa-instagram"></i>
+                                                </a>
+                                                <a href="https://linkedin.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                                                    <i class="fab fa-linkedin-in"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Liens rapides -->
+                                        <div>
+                                            <h3 class="text-xl font-bold mb-4">Liens rapides</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    Accueil
+                                                </a></li>
+                                                <li><a href="a-propos.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    À Propos
+                                                </a></li>
+                                                <li><a href="activites.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    Nos Activités
+                                                </a></li>
+                                                <li><a href="blog.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    Blog & Actualités
+                                                </a></li>
+                                                <li><a href="galerie.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    Galerie
+                                                </a></li>
+                                                <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    Contact
+                                                </a></li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <!-- Activités -->
+                                        <div>
+                                            <h3 class="text-xl font-bold mb-4">Nos Activités</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#reboisement" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    Reboisement
+                                                </a></li>
+                                                <li><a href="#formation" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    Formation
+                                                </a></li>
+                                                <li><a href="#eau" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    Gestion de l'eau
+                                                </a></li>
+                                                <li><a href="#agriculture" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    Agriculture Durable
+                                                </a></li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <!-- Contact -->
+                                        <div>
+                                            <h3 class="text-xl font-bold mb-4">Contact</h3>
+                                            <ul class="space-y-3">
+                                                <li class="flex items-start">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-forest-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    </svg>
+                                                    <span class="text-gray-300">Quartier Kipé, Conakry, Guinée</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-forest-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                                    </svg>
+                                                    <span class="text-gray-300">+224 620 12 34 56</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-forest-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                    </svg>
+                                                    <span class="text-gray-300">daoucamarat@gmail.com</span>
+                                                </li>
+                                            </ul>
+                                            
+                                            <div class="mt-6">
+                                                <h4 class="font-semibold mb-2">Inscrivez-vous à notre newsletter</h4>
+                                                <form action="#" method="POST" class="flex">
+                                                    <input type="email" placeholder="Votre email" required
+                                                        class="flex-1 px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/10 text-white placeholder-gray-400">
+                                                    <button type="submit" class="px-4 py-2 bg-forest-600 hover:bg-forest-700 rounded-r-lg transition-colors duration-300">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-12 pt-8 border-t border-white/10">
+                                        <div class="flex flex-col md:flex-row justify-between items-center">
+                                            <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                                                &copy; 2024 GAF - Guinéenne d'Agroforesterie. Par YATTARA Ousmane
+                                            </p>
+                                            <div class="flex space-x-6">
+                                                <a href="mentions-legales.html" class="text-gray-400 hover:text-white text-sm transition-colors duration-300">Mentions légales</a>
+                                                <a href="politique-confidentialite.html" class="text-gray-400 hover:text-white text-sm transition-colors duration-300">Politique de confidentialité</a>
+                                                <a href="contact.html" class="text-gray-400 hover:text-white text-sm transition-colors duration-300">Contact</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </footer>
+                    
+                            <!-- Bouton retour en haut -->
+                            <button id="back-to-top" class="fixed bottom-6 right-6 z-50 p-3 bg-forest-600 text-white rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-forest-700 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                                </svg>
+                            </button>
+                    
+                            <!-- Scripts -->
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+                            <script>
+                                // Navigation mobile
+                                document.getElementById('mobile-menu-button').addEventListener('click', function() {
+                                    document.getElementById('mobile-menu').classList.toggle('hidden');
+                                });
+                    
+                                // Slider
+                                let currentSlide = 0;
+                                const slides = document.querySelectorAll('.slide');
+                                
+                                function showSlide(index) {
+                                    slides.forEach((slide, i) => {
+                                        if (i === index) {
+                                            slide.classList.add('active');
+                                        } else {
+                                            slide.classList.remove('active');
+                                        }
+                                    });
+                                    
+                                    currentSlide = index;
+                                }
+                                
+                                // Auto-slide
+                                setInterval(() => {
+                                    currentSlide = (currentSlide + 1) % slides.length;
+                                    showSlide(currentSlide);
+                                }, 5000);
+                                
+                                // Initialiser le slider
+                                showSlide(0);
+                                
+                                // Bouton retour en haut
+                                const backToTopButton = document.getElementById('back-to-top');
+                                
+                                window.addEventListener('scroll', () => {
+                                    if (window.pageYOffset > 300) {
+                                        backToTopButton.classList.remove('opacity-0', 'invisible');
+                                        backToTopButton.classList.add('opacity-100', 'visible');
+                                    } else {
+                                        backToTopButton.classList.remove('opacity-100', 'visible');
+                                        backToTopButton.classList.add('opacity-0', 'invisible');
+                                    }
+                                });
+                                
+                                backToTopButton.addEventListener('click', () => {
+                                    window.scrollTo({
+                                        top: 0,
+                                        behavior: 'smooth'
+                                    });
+                                });
+                    
+                                // Smooth scroll pour les ancres
+                                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                                    anchor.addEventListener('click', function (e) {
+                                        e.preventDefault();
+                                        
+                                        const targetId = this.getAttribute('href');
+                                        if (targetId === '#') return;
+                                        
+                                        const targetElement = document.querySelector(targetId);
+                                        if (targetElement) {
+                                            const headerOffset = 80;
+                                            const elementPosition = targetElement.getBoundingClientRect().top;
+                                            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                            
+                                            window.scrollTo({
+                                                top: offsetPosition,
+                                                behavior: 'smooth'
+                                            });
+                                        }
+                                    });
+                                });
+                            </script>
+                        </main>
+                    </body>
+                    </html>
+                    
