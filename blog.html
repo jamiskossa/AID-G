@@ -3,86 +3,815 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Blog et Actualités - AIG</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="responsive.css">
+    <title>Blog et Actualités - GAF Guinéenne d'Agroforesterie</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'forest': {
+                            50: '#f2f8f2',
+                            100: '#e0efe0',
+                            200: '#c1dfc1',
+                            300: '#92c692',
+                            400: '#5fa75f',
+                            500: '#3f8c3f',
+                            600: '#2e712e',
+                            700: '#265a26',
+                            800: '#224822',
+                            900: '#1e3c1e',
+                            950: '#0f210f',
+                        },
+                        'earth': {
+                            50: '#f9f6f3',
+                            100: '#f0e9e1',
+                            200: '#e0ceb8',
+                            300: '#d0b08e',
+                            400: '#c1946a',
+                            500: '#b17e53',
+                            600: '#a06a47',
+                            700: '#85553c',
+                            800: '#6e4735',
+                            900: '#5b3c2e',
+                            950: '#301e17',
+                        },
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-in-out',
+                        'slide-down': 'slideDown 0.8s ease-in-out',
+                        'slide-left': 'slideLeft 0.8s ease-in-out',
+                        'slide-right': 'slideRight 0.8s ease-in-out',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideLeft: {
+                            '0%': { transform: 'translateX(30px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        slideRight: {
+                            '0%': { transform: 'translateX(-30px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                    },
+                    backgroundImage: {
+                        'green-gradient': 'linear-gradient(135deg, #2e712e 0%, #5fa75f 50%, #92c692 100%)',
+                        'earth-gradient': 'linear-gradient(135deg, #6e4735 0%, #a06a47 50%, #d0b08e 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes gradientBg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradientBg 8s ease infinite;
+        }
+        
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        /* Parallax effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3f8c3f;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2e712e;
+        }
+    </style>
 </head>
-<body>
-    <main>
-    <header>
-        <div class="logo">
-            <img src="gaf.jpeg" alt="Logo AIG">
-        </div>
-        <nav>
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+
+<body class="font-sans text-gray-800 overflow-x-hidden">
+    <main class="relative">
+        <!-- Header avec navigation -->
+        <header class="fixed w-full bg-forest-900 text-white shadow-md z-50 transition-all duration-300" id="navbar">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="logo flex items-center">
+                    <img src="gaf.jpeg" alt="gaf" class="h-14 w-auto rounded-lg shadow-sm mr-3 transition-transform duration-500 hover:scale-105">
+                    <span class="font-bold text-xl md:text-2xl bg-clip-text text-transparent bg-green-gradient animate-gradient">GAF</span>
+                </div>
+                
+                <!-- Menu mobile toggle -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="flex items-center p-2 rounded-md text-forest-600 hover:text-forest-800 hover:bg-forest-100 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Navigation desktop -->
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-1">
+                        <li><a href="index.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Accueil</a></li>
+                        <li><a href="a-propos.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">À Propos</a></li>
+                        <li><a href="activites.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Nos Activités</a></li>
+                        <li><a href="blog.html" class="px-3 py-2 rounded-md text-white bg-forest-600 hover:bg-forest-700 transition-colors duration-300 font-medium">Blog & Actualités</a></li>
+                        <li><a href="galerie.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Galerie & Vidéo</a></li>
+                        <li><a href="contact.html" class="px-3 py-2 rounded-md text-white hover:bg-forest-700 transition-colors duration-300 font-medium">Contact</a></li>
+                    </ul>
+                </nav>
             </div>
-            <ul class="nav-list">
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="a-propos.html">À Propos</a></li>
-                <li><a href="activites.html">Nos Activités</a></li>
-                <li><a href="blog.html">Blog & Actualités</a></li>
-                <li><a href="galerie.html">Galerie & Vidéo</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-        <section id="articles">
-            <h2>Articles sur l'agroforesterie et l'environnement</h2>
-            <div class="article">
-                <img src="16.png" alt="Logo AID-G">
-                <h3>Titre de l'article</h3>
-                <p>Extrait de l'article...</p>
-            </div>
-            <!-- Ajoutez plus d'articles ici -->
-            <div class="article">
-                <img src="16.png" alt="Logo AID-G">
-                <h3>Titre de l'article</h3>
-                <p>Extrait de l'article...</p>
-            </div>
-            <div class="article">
-                <img src="16.png" alt="Logo AID-G">
-                <h3>Titre de l'article</h3>
-                <p>Extrait de l'article...</p>
-            </div>
-        </section>
-        <section id="videos">
-            <h2>Vidéos et interviews</h2>
-            <div class="video">
-                <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <!-- Ajoutez plus de vidéos ici -->
-        </section>
-        <section id="events">
-            <h2>Événements et conférences</h2>
-            <div class="calendar">
-                <h3>Prochains événements</h3>
-                <ul>
-                    <li>Événement 1 - Date</li>
-                    <!-- Ajoutez plus d'événements ici -->
+            
+            <!-- Menu mobile -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 shadow-inner">
+                <ul class="py-2 px-4 space-y-1">
+                    <li><a href="index.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">Accueil</a></li>
+                    <li><a href="a-propos.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">À Propos</a></li>
+                    <li><a href="activites.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">Nos Activités</a></li>
+                    <li><a href="blog.html" class="block px-3 py-2 rounded-md text-white bg-forest-600 hover:bg-forest-700 transition-colors duration-300">Blog & Actualités</a></li>
+                    <li><a href="galerie.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300">Galerie & Vidéo</a></li>
+                    <li><a href="contact.html" class="block px-3 py-2 rounded-md text-forest-700 hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 mt-2">Contact</a></li>
                 </ul>
             </div>
-        </section>
-    
-        <footer>
-            <div class="footer-content">
-                <p>&copy; 2025 AIG Agroforesterie Intégrée et Durable en Guinée</p>
-                <div class="social-icons">
-                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </header>
+
+        <!-- Bannière -->
+        <section class="banner pt-20 relative h-[40vh] overflow-hidden">
+            <div class="h-full">
+                <img src="16.png" alt="Blog et Actualités" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <div class="text-center text-white px-4 animate-fade-in">
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Blog & Actualités</h1>
+                        <p class="text-xl md:text-2xl max-w-3xl mx-auto">Restez informé sur l'agroforesterie et nos activités</p>
+                    </div>
                 </div>
-                <p>Par Yattara Ousmane</p>
             </div>
-        </footer>
-</main>
-    <script src="main.js"></script>
-</body>
-</html>
+        </section>
+
+        <!-- Articles récents -->
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12 animate-fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold text-forest-800 mb-4">Articles récents</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Découvrez nos derniers articles sur l'agroforesterie et l'environnement</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Article 1 -->
+                    <article class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500 animate-slide-up" style="animation-delay: 0.1s;">
+                        <div class="relative overflow-hidden h-56">
+                            <img src="16.png" alt="Les bienfaits de l'agroforesterie" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+                                <div class="p-4">
+                                    <span class="inline-block px-3 py-1 bg-forest-500 text-white text-xs font-semibold rounded-full mb-2">Agroforesterie</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-gray-500 text-sm mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span>15 Mai 2024</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Les bienfaits de l'agroforesterie</h3>
+                            <p class="text-gray-600 mb-4">Découvrez comment l'agroforesterie contribue à la préservation des sols et au développement durable en Guinée.</p>
+                            <a href="#" class="inline-flex items-center text-forest-600 hover:text-forest-800 font-medium transition-colors duration-300">
+                                Lire l'article complet
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 2 -->
+                    <article class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500 animate-slide-up" style="animation-delay: 0.2s;">
+                        <div class="relative overflow-hidden h-56">
+                            <img src="16.png" alt="Reboisement : Un défi écologique" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+                                <div class="p-4">
+                                    <span class="inline-block px-3 py-1 bg-forest-500 text-white text-xs font-semibold rounded-full mb-2">Écologie</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-gray-500 text-sm mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span>2 Juin 2024</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Reboisement : Un défi écologique</h3>
+                            <p class="text-gray-600 mb-4">Comment le reboisement peut restaurer les écosystèmes et améliorer la biodiversité dans les régions dégradées de Guinée.</p>
+                            <a href="#" class="inline-flex items-center text-forest-600 hover:text-forest-800 font-medium transition-colors duration-300">
+                                Lire l'article complet
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 3 -->
+                    <article class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500 animate-slide-up" style="animation-delay: 0.3s;">
+                        <div class="relative overflow-hidden h-56">
+                            <img src="16.png" alt="Nouvelles techniques agricoles" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+                                <div class="p-4">
+                                    <span class="inline-block px-3 py-1 bg-forest-500 text-white text-xs font-semibold rounded-full mb-2">Innovation</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-gray-500 text-sm mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span>20 Juin 2024</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Nouvelles techniques agricoles</h3>
+                            <p class="text-gray-600 mb-4">Les innovations en agriculture durable qui transforment l'avenir des agriculteurs guinéens et améliorent leur productivité.</p>
+                            <a href="#" class="inline-flex items-center text-forest-600 hover:text-forest-800 font-medium transition-colors duration-300">
+                                Lire l'article complet
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 4 -->
+                    <article class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500 animate-slide-up" style="animation-delay: 0.4s;">
+                        <div class="relative overflow-hidden h-56">
+                            <img src="16.png" alt="L'impact du changement climatique" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+                                <div class="p-4">
+                                    <span class="inline-block px-3 py-1 bg-forest-500 text-white text-xs font-semibold rounded-full mb-2">Climat</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-gray-500 text-sm mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span>5 Juillet 2024</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">L'impact du changement climatique</h3>
+                            <p class="text-gray-600 mb-4">Comment le changement climatique affecte l'agriculture en Guinée et les solutions d'adaptation proposées par GAF.</p>
+                            <a href="#" class="inline-flex items-center text-forest-600 hover:text-forest-800 font-medium transition-colors duration-300">
+                                Lire l'article complet
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 5 -->
+                    <article class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500 animate-slide-up" style="animation-delay: 0.5s;">
+                        <div class="relative overflow-hidden h-56">
+                            <img src="16.png" alt="Formation des agriculteurs" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+                                <div class="p-4">
+                                    <span class="inline-block px-3 py-1 bg-forest-500 text-white text-xs font-semibold rounded-full mb-2">Formation</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-gray-500 text-sm mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span>12 Juillet 2024</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Formation des agriculteurs</h3>
+                            <p class="text-gray-600 mb-4">L'importance de la formation et du renforcement des capacités des agriculteurs pour une agriculture durable.</p>
+                            <a href="#" class="inline-flex items-center text-forest-600 hover:text-forest-800 font-medium transition-colors duration-300">
+                                Lire l'article complet
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 6 -->
+                    <article class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500 animate-slide-up" style="animation-delay: 0.6s;">
+                        <div class="relative overflow-hidden h-56">
+                            <img src="16.png" alt="Gestion de l'eau" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+                                <div class="p-4">
+                                    <span class="inline-block px-3 py-1 bg-forest-500 text-white text-xs font-semibold rounded-full mb-2">Ressources</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-gray-500 text-sm mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span>18 Juillet 2024</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-forest-700 group-hover:text-forest-800 transition-colors duration-300">Gestion durable de l'eau</h3>
+                            <p class="text-gray-600 mb-4">Techniques innovantes pour une gestion efficace des ressources hydriques en agriculture guinéenne.</p>
+                            <a href="#" class="inline-flex items-center text-forest-600 hover:text-forest-800 font-medium transition-colors duration-300">
+                                Lire l'article complet
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:ml-2 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="mt-12 flex justify-center">
+                    <nav class="inline-flex rounded-md shadow">
+                        <a href="#" class="py-2 px-4 bg-white border border-gray-300 rounded-l-md text-forest-600 hover:bg-forest-50 transition-colors duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </a>
+                        <a href="#" class="py-2 px-4 bg-forest-600 border border-forest-600 text-white hover:bg-forest-700 transition-colors duration-300">1</a>
+                        <a href="#" class="py-2 px-4 bg-white border border-gray-300 text-forest-600 hover:bg-forest-50 transition-colors duration-300">2</a>
+                        <a href="#" class="py-2 px-4 bg-white border border-gray-300 text-forest-600 hover:bg-forest-50 transition-colors duration-300">3</a>
+                        <a href="#" class="py-2 px-4 bg-white border border-gray-300 rounded-r-md text-forest-600 hover:bg-forest-50 transition-colors duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vidéos et interviews -->
+        <section class="py-16 bg-gradient-to-r from-forest-50 to-forest-100 animate-gradient">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12 animate-fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold text-forest-800 mb-4">Vidéos et interviews</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Découvrez nos vidéos sur l'agroforesterie et les témoignages des agriculteurs</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Vidéo 1 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden animate-slide-up" style="animation-delay: 0.1s;">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <iframe class="w-full h-56" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-3 text-forest-700">Techniques d'agroforesterie</h3>
+                            <p class="text-gray-600 mb-4">Présentation des techniques d'agroforesterie utilisées par GAF en Guinée.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Vidéo 2 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden animate-slide-up" style="animation-delay: 0.2s;">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <iframe class="w-full h-56" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-3 text-forest-700">Interview avec les agriculteurs</h3>
+                            <p class="text-gray-600 mb-4">Témoignages d'agriculteurs guinéens sur l'impact des pratiques agroforestières.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Vidéo 3 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden animate-slide-up" style="animation-delay: 0.3s;">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <iframe class="w-full h-56" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-3 text-forest-700">Projet de reboisement</h3>
+                            <p class="text-gray-600 mb-4">Présentation de notre projet de reboisement dans la région de Kindia.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-10">
+                    <a href="#" class="inline-block px-8 py-3 bg-forest-600 hover:bg-forest-700 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        Voir toutes les vidéos
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Événements et conférences -->
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12 animate-fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold text-forest-800 mb-4">Événements et conférences</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Restez informé des prochains événements sur l'agroforesterie</p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-forest-700 mb-6">Prochains événements</h3>
+                        <ul class="space-y-6">
+                            <!-- Événement 1 -->
+                            <li class="flex items-start p-4 bg-forest-50 rounded-lg animate-slide-right" style="animation-delay: 0.1s;">
+                                <div class="flex-shrink-0 h-16 w-16 rounded-lg bg-forest-200 flex flex-col items-center justify-center mr-4 text-forest-700 font-bold">
+                                    <span class="text-lg">15</span>
+                                    <span class="text-sm">Juil</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-forest-800 text-lg">Conférence sur l'agroforesterie durable</h4>
+                                    <p class="text-gray-600 mb-2">Une journée dédiée aux pratiques agroforestières durables en Guinée.</p>
+                                    <div class="flex items-center text-sm text-gray-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>9h00 - 17h00</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                        <span>Centre culturel, Conakry</span>
+                                    </div>
+                                </div>
+                                <a href="#" class="ml-auto flex-shrink-0 bg-forest-600 hover:bg-forest-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300">
+                                    S'inscrire
+                                </a>
+                            </li>
+                            
+                            <!-- Événement 2 -->
+                            <li class="flex items-start p-4 bg-forest-50 rounded-lg animate-slide-right" style="animation-delay: 0.2s;">
+                                <div class="flex-shrink-0 h-16 w-16 rounded-lg bg-forest-200 flex flex-col items-center justify-center mr-4 text-forest-700 font-bold">
+                                    <span class="text-lg">22</span>
+                                    <span class="text-sm">Août</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-forest-800 text-lg">Atelier sur l'agriculture durable</h4>
+                                    <p class="text-gray-600 mb-2">Formation pratique sur les techniques d'agriculture durable.</p>
+                                    <div class="flex items-center text-sm text-gray-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>10h00 - 16h00</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                        <span>Ferme expérimentale, Kindia</span>
+                                    </div>
+                                </div>
+                                <a href="#" class="ml-auto flex-shrink-0 bg-forest-600 hover:bg-forest-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300">
+                                    S'inscrire
+                                </a>
+                            </li>
+                            
+                            <!-- Événement 3 -->
+                            <li class="flex items-start p-4 bg-forest-50 rounded-lg animate-slide-right" style="animation-delay: 0.3s;">
+                                <div class="flex-shrink-0 h-16 w-16 rounded-lg bg-forest-200 flex flex-col items-center justify-center mr-4 text-forest-700 font-bold">
+                                    <span class="text-lg">10</span>
+                                    <span class="text-sm">Sept</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-forest-800 text-lg">Sensibilisation à la gestion de l'eau</h4>
+                                    <p class="text-gray-600 mb-2">Journée de sensibilisation sur la gestion durable des ressources hydriques.</p>
+                                    <div class="flex items-center text-sm text-gray-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>9h00 - 15h00</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                        <span>Centre communautaire, Mamou</span>
+                                    </div>
+                                </div>
+                                <a href="#" class="ml-auto flex-shrink-0 bg-forest-600 hover:bg-forest-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300">
+                                    S'inscrire
+                                </a>
+                            </li>
+                        </ul>
+                        
+                        <div class="mt-8 text-center">
+                            <a href="contact.html" class="inline-block px-6 py-3 bg-forest-600 hover:bg-forest-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-md">
+                                Voir tous les événements
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="py-16 bg-gradient-to-r from-earth-100 to-earth-200 animate-gradient">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="md:flex">
+                        <div class="md:w-1/2 p-8 animate-slide-right">
+                            <h3 class="text-2xl font-bold text-earth-700 mb-4">Abonnez-vous à notre newsletter</h3>
+                            <p class="text-gray-600 mb-6">Recevez nos derniers articles, actualités et événements directement dans votre boîte mail.</p>
+                            <form action="#" method="POST" class="space-y-4">
+                                <div>
+                                    <label for="nom" class="block text-sm font-medium text-gray-700 mb-1">Votre Nom</label>
+                                    <input type="text" id="nom" name="nom" placeholder="Entrez votre nom" required
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-earth-500 focus:border-earth-500 transition-colors duration-300">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Votre Email</label>
+                                    <input type="email" id="email" name="email" placeholder="Entrez votre email" required
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-earth-500 focus:border-earth-500 transition-colors duration-300">
+                                </div>
+                                <div class="flex items-start">
+                                    <input type="checkbox" id="consent" name="consent" required class="mt-1 mr-2">
+                                    <label for="consent" class="text-sm text-gray-600">J'accepte de recevoir la newsletter et je comprends que je peux me désabonner à tout moment.</label>
+                                </div>
+                                <button type="submit" 
+                                    class="w-full px-6 py-3 bg-earth-600 hover:bg-earth-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                                    S'abonner à la newsletter
+                                </button>
+                            </form>
+                        </div>
+                        <div class="md:w-1/2 bg-earth-gradient text-white p-8 animate-slide-left">
+                            <h3 class="text-2xl font-bold mb-4">Pourquoi s'abonner ?</h3>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Recevez nos derniers articles sur l'agroforesterie</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Soyez informé des prochains événements et formations</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Découvrez des conseils pratiques pour l'agriculture durable</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Suivez l'impact de nos projets sur les communautés locales</span>
+                                </li>
+                            </ul>
+                            <div class="mt-6">
+                                <p class="text-white/80 text-sm">Nous respectons votre vie privée. Vos données ne seront jamais partagées avec des tiers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-forest-900 text-white py-12">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- À propos -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">À propos de GAF</h3>
+                        <p class="text-gray-300 mb-4">GAF est un projet dédié à la promotion de l'agroforesterie durable en Guinée pour un avenir plus vert et plus prospère.</p>
+                        <div class="flex space-x-3">
+                            <a href="https://facebook.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://twitter.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Liens rapides -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Liens rapides</h3>
+                        <ul class="space-y-2">
+                            <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Accueil
+                            </a></li>
+                            <li><a href="a-propos.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                À Propos
+                            </a></li>
+                            <li><a href="activites.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Nos Activités
+                            </a></li>
+                            <li><a href="blog.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Blog & Actualités
+                            </a></li>
+                            <li><a href="galerie.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Galerie
+                            </a></li>
+                            <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Contact
+                            </a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Activités -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Nos Activités</h3>
+                        <ul class="space-y-2">
+                            <li><a href="activites.html#reboisement" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Reboisement
+                            </a></li>
+                            <li><a href="activites.html#formation" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Formation
+                            </a></li>
+                            <li><a href="activites.html#eau" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Gestion de l'eau
+                            </a></li>
+                            <li><a href="activites.html#agriculture" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                                Agriculture Durable
+                            </a></li>
+                        </ul>
+                    </div>
+                    
+                                        <!-- Contact -->
+                                        <div>
+                                            <h3 class="text-xl font-bold mb-4">Contact</h3>
+                                            <ul class="space-y-3">
+                                                <li class="flex items-start">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-forest-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    </svg>
+                                                    <span class="text-gray-300">Quartier Kipé, Conakry, Guinée</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-forest-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                                    </svg>
+                                                    <span class="text-gray-300">+224 620 12 34 56</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-forest-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                    </svg>
+                                                    <span class="text-gray-300">daoucamarat@gmail.com</span>
+                                                </li>
+                                            </ul>
+                                            
+                                            <div class="mt-6">
+                                                <h4 class="font-semibold mb-2">Inscrivez-vous à notre newsletter</h4>
+                                                <form action="#" method="POST" class="flex">
+                                                    <input type="email" placeholder="Votre email" required
+                                                        class="flex-1 px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/10 text-white placeholder-gray-400">
+                                                    <button type="submit" class="px-4 py-2 bg-forest-600 hover:bg-forest-700 rounded-r-lg transition-colors duration-300">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-12 pt-8 border-t border-white/10">
+                                        <div class="flex flex-col md:flex-row justify-between items-center">
+                                            <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                                                &copy; 2024 GAF - Guinéenne d'Agroforesterie. Par YATTARA Ousmane
+                                            </p>
+                                            <div class="flex space-x-6">
+                                                <a href="mentions-legales.html" class="text-gray-400 hover:text-white text-sm transition-colors duration-300">Mentions légales</a>
+                                                <a href="politique-confidentialite.html" class="text-gray-400 hover:text-white text-sm transition-colors duration-300">Politique de confidentialité</a>
+                                                <a href="contact.html" class="text-gray-400 hover:text-white text-sm transition-colors duration-300">Contact</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </footer>
+                    
+                            <!-- Bouton retour en haut -->
+                            <button id="back-to-top" class="fixed bottom-6 right-6 z-50 p-3 bg-forest-600 text-white rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-forest-700 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                                </svg>
+                            </button>
+                    
+                            <!-- Scripts -->
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+                            <script>
+                                // Navigation mobile
+                                document.getElementById('mobile-menu-button').addEventListener('click', function() {
+                                    document.getElementById('mobile-menu').classList.toggle('hidden');
+                                });
+                    
+                                // Bouton retour en haut
+                                const backToTopButton = document.getElementById('back-to-top');
+                                
+                                window.addEventListener('scroll', () => {
+                                    if (window.pageYOffset > 300) {
+                                        backToTopButton.classList.remove('opacity-0', 'invisible');
+                                        backToTopButton.classList.add('opacity-100', 'visible');
+                                    } else {
+                                        backToTopButton.classList.remove('opacity-100', 'visible');
+                                        backToTopButton.classList.add('opacity-0', 'invisible');
+                                    }
+                                });
+                                
+                                backToTopButton.addEventListener('click', () => {
+                                    window.scrollTo({
+                                        top: 0,
+                                        behavior: 'smooth'
+                                    });
+                                });
+                    
+                                // Animation au défilement
+                                function revealOnScroll() {
+                                    const elements = document.querySelectorAll('.animate-slide-up, .animate-slide-down, .animate-slide-left, .animate-slide-right, .animate-fade-in');
+                                    
+                                    elements.forEach(element => {
+                                        const elementTop = element.getBoundingClientRect().top;
+                                        const elementVisible = 150;
+                                        
+                                        if (elementTop < window.innerHeight - elementVisible) {
+                                            element.classList.add('visible');
+                                        }
+                                    });
+                                }
+                    
+                                window.addEventListener('scroll', revealOnScroll);
+                                revealOnScroll();
+                            </script>
+                        </main>
+                    </body>
+                    </html>
+                    
