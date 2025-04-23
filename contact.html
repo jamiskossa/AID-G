@@ -3,100 +3,632 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Contact - AID-G</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="responsive.css">
+    <title>Contact - GAF Guinéenne d'Agroforesterie</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'forest': {
+                            50: '#f2f8f2',
+                            100: '#e0efe0',
+                            200: '#c1dfc1',
+                            300: '#92c692',
+                            400: '#5fa75f',
+                            500: '#3f8c3f',
+                            600: '#2e712e',
+                            700: '#265a26',
+                            800: '#224822',
+                            900: '#1e3c1e',
+                            950: '#0f210f',
+                        },
+                        'earth': {
+                            50: '#f9f6f3',
+                            100: '#f0e9e1',
+                            200: '#e0ceb8',
+                            300: '#d0b08e',
+                            400: '#c1946a',
+                            500: '#b17e53',
+                            600: '#a06a47',
+                            700: '#85553c',
+                            800: '#6e4735',
+                            900: '#5b3c2e',
+                            950: '#301e17',
+                        },
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-in-out',
+                        'slide-down': 'slideDown 0.8s ease-in-out',
+                        'slide-left': 'slideLeft 0.8s ease-in-out',
+                        'slide-right': 'slideRight 0.8s ease-in-out',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideLeft: {
+                            '0%': { transform: 'translateX(30px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        slideRight: {
+                            '0%': { transform: 'translateX(-30px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                    },
+                    backgroundImage: {
+                        'green-gradient': 'linear-gradient(135deg, #2e712e 0%, #5fa75f 50%, #92c692 100%)',
+                        'earth-gradient': 'linear-gradient(135deg, #6e4735 0%, #a06a47 50%, #d0b08e 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes gradientBg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradientBg 8s ease infinite;
+        }
+        
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        /* Parallax effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3f8c3f;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2e712e;
+        }
+
+        /* WhatsApp floating button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 20px;
+            left: 20px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #20ba5a;
+        }
+    </style>
 </head>
-<body>
-    
-    <main>
-        <header>
-            <div class="logo">
-                <img src="gaf.jpeg" alt="Logo AID-G">
-            </div>
-            <nav>
-                <div class="menu-toggle" id="mobile-menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
+
+<body class="font-sans text-gray-800 overflow-x-hidden">
+    <main class="relative">
+        <!-- Header avec navigation -->
+        <header class="fixed w-full bg-forest-900 text-white shadow-md z-50 transition-all duration-300" id="navbar">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="logo flex items-center">
+                    <img src="gaf.jpeg" alt="gaf" class="h-14 w-auto rounded-lg shadow-sm mr-3 transition-transform duration-500 hover:scale-105">
+                    <span class="font-bold text-xl md:text-2xl bg-clip-text text-transparent bg-green-gradient animate-gradient">GAF</span>
                 </div>
-                <ul class="nav-list">
-                    <li><a href="index.html">Accueil</a></li>
-                    <li><a href="a-propos.html">À Propos</a></li>
-                    <li><a href="activites.html">Nos Activités</a></li>
-                    <li><a href="blog.html">Blog & Actualités</a></li>
-                    <li><a href="galerie.html">Galerie & Vidéo</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                
+                <!-- Menu mobile toggle -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="flex items-center p-2 rounded-md text-forest-600 hover:text-forest-800 hover:bg-forest-100 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Navigation desktop -->
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-1">
+                        <li><a href="index.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Accueil</a></li>
+                        <li><a href="a-propos.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">À Propos</a></li>
+                        <li><a href="activites.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Nos Activités</a></li>
+                        <li><a href="blog.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Blog & Actualités</a></li>
+                        <li><a href="contact.html" class="px-3 py-2 rounded-md text-white bg-forest-600 hover:bg-forest-700 transition-colors duration-300 font-medium">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <!-- Menu mobile -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 shadow-inner">
+                <ul class="py-2 px-4 space-y-1">
+                    <li><a href="index.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Accueil</a></li>
+                        <li><a href="a-propos.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">À Propos</a></li>
+                        <li><a href="activites.html" class="px-3 py-2 rounded-md text-white hover:text-forest-900 hover:bg-forest-50 transition-colors duration-300 font-medium">Nos Activités</a></li>
+                        <li><a href="blog.html" class="px-3 py-2 rounded-md text-white bg-forest-600 hover:bg-forest-700 transition-colors duration-300 font-medium">Blog & Actualités</a></li>
+                        <li><a href="contact.html" class="px-3 py-2 rounded-md text-white hover:bg-forest-700 transition-colors duration-300 font-medium">Contact</a></li>
                 </ul>
-            </nav>
+            </div>
         </header>
 
-        <section class="contact">
-            <h2>Contactez-nous</h2>
-            <p>Nous sommes à votre disposition pour toute question.</p>
-    
-            <div class="contact-container">
-    
-                <!-- Formulaire de contact -->
-                <div class="contact-form">
-                    <h3>Envoyer un message</h3>
-                    <form action="contact.php" method="POST">
-                        <input type="text" name="nom" placeholder="Votre Nom" required>
-                        <input type="email" name="email" placeholder="Votre Email" required>
-                        <textarea name="message" placeholder="Votre Message" rows="5" required></textarea>
-                        <button type="submit">Envoyer</button>
-                    </form>
+        <!-- Bannière -->
+        <section class="banner pt-20 relative h-[40vh] overflow-hidden">
+            <div class="h-full">
+                <img src="16.png" alt="Contactez-nous" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <div class="text-center text-white px-4 animate-fade-in">
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Contactez-nous</h1>
+                        <p class="text-xl md:text-2xl max-w-3xl mx-auto">Nous sommes à votre disposition pour toute question</p>
+                    </div>
                 </div>
-    
-                <!-- Informations de contact -->
-                <div class="contact-info">
-                    <h3>Nos coordonnées</h3>
-                    
-                    <p><strong>Adresse :</strong> Quartier Kipé, Conakry, Guinée</p>
-                <p><strong>Téléphone :</strong> +224 620 12 34 56</p>
-                <p><strong>Email :</strong> daoucamarat@gmail.com/p>
-                </div>
-    
             </div>
-    
-            <!-- Carte Google Maps -->
-            <div class="contact-map">
+        </section>
+
+        <!-- Section Contact -->
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <!-- Formulaire de contact -->
+                        <div class="bg-white rounded-xl shadow-lg p-8 animate-slide-right">
+                            <h2 class="text-2xl font-bold text-forest-700 mb-6">Envoyer un message</h2>
+                            <form action="contact.php" method="POST" class="space-y-6">
+                                <div>
+                                    <label for="nom" class="block text-sm font-medium text-gray-700 mb-1">Votre Nom</label>
+                                    <input type="text" id="nom" name="nom" placeholder="Entrez votre nom" required
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 transition-colors duration-300">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Votre Email</label>
+                                    <input type="email" id="email" name="email" placeholder="Entrez votre email" required
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 transition-colors duration-300">
+                                </div>
+                                <div>
+                                    <label for="sujet" class="block text-sm font-medium text-gray-700 mb-1">Sujet</label>
+                                    <input type="text" id="sujet" name="sujet" placeholder="Sujet de votre message" required
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 transition-colors duration-300">
+                                </div>
+                                <div>
+                                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Votre Message</label>
+                                    <textarea id="message" name="message" rows="5" placeholder="Écrivez votre message ici..." required
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 transition-colors duration-300"></textarea>
+                                </div>
+                                <button type="submit" 
+                                class="w-full px-6 py-3 bg-forest-600 hover:bg-forest-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                                Envoyer le message
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Informations de contact -->
+                    <div class="bg-forest-gradient text-black rounded-xl shadow-lg p-8 animate-slide-left">
+                        <h2 class="text-2xl font-bold mb-6">Nos coordonnées</h2>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-white/20 flex items-center justify-center mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold mb-1">Adresse</h3>
+                                    <p class="text-black/80">Quartier Kipé, Conakry, Guinée</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-white/20 flex items-center justify-center mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold mb-1">Téléphone</h3>
+                                    <p class="text-blue/80">+224 620 12 34 56</p>
+                                    <p class="text-blue/80 mt-1">+224 655 78 90 12</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-white/20 flex items-center justify-center mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold mb-1">Email</h3>
+                                    <p class="text-black/80">daoucamarat@gmail.com</p>
+                                    <p class="text-black/80 mt-1">contact@gafagroforesterie.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-white/20 flex items-center justify-center mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold mb-1">Heures d'ouverture</h3>
+                                    <p class="text-black/80">Lundi - Vendredi: 8h00 - 17h00</p>
+                                    <p class="text-black80 mt-1">Samedi: 9h00 - 13h00</p>
+                                </div>
+                            </div>
+                            
+                            <div class="pt-6">
+                                <h3 class="text-lg font-semibold mb-3">Suivez-nous</h3>
+                                <div class="flex space-x-4">
+                                    <a href="https://facebook.com" target="_blank" class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors duration-300">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="https://twitter.com" target="_blank" class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors duration-300">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="https://instagram.com" target="_blank" class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors duration-300">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a href="https://linkedin.com" target="_blank" class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors duration-300">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carte Google Maps -->
+    <section class="py-8">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto rounded-xl overflow-hidden shadow-lg animate-fade-in">
                 <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.855326968228!2d-122.0842496846928!3d37.422065979825056!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3e066be98fdd14c!2sGoogleplex!5e0!3m2!1sfr!2sfr!4v1633094828081"
-                    width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" class="w-full">
                 </iframe>
             </div>
-    
-        </section>
+        </div>
+    </section>
 
-        <section id="social">
-            <h2> newsletter</h2>
-            
-            <form action="subscribe.php" method="post">
-                <label for="newsletter-email">Inscrivez-vous à notre newsletter:</label>
-                <input type="email" id="newsletter-email" name="newsletter-email" required>
-                <button type="submit">S'inscrire</button>
-            </form>
-        </section>
-
-        <footer>
-            <div class="footer-content">
-                <p>&copy; 2025 AIG Agroforesterie Intégrée et Durable en Guinée</p>
-                <div class="social-icons">
-                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-                <p>Par Yattara Ousmane</p>
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gradient-to-r from-forest-50 to-forest-100 animate-gradient">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 animate-fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-forest-800 mb-4">Questions fréquentes</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Trouvez rapidement des réponses à vos questions</p>
             </div>
-        </footer>
-    </main>
-    
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-4">
+                    <!-- Question 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden animate-slide-up" style="animation-delay: 0.1s;">
+                        <button class="faq-toggle w-full px-6 py-4 text-left font-semibold text-forest-700 hover:text-forest-800 transition-colors duration-300 flex justify-between items-center">
+                            <span>Comment puis-je participer à vos projets ?</span>
+                            <svg class="faq-icon h-5 w-5 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="faq-content px-6 pb-4 hidden">
+                            <p class="text-gray-600">Vous pouvez participer à nos projets de plusieurs façons : en devenant bénévole, en faisant un don, ou en participant à nos formations et ateliers. Contactez-nous pour plus d'informations sur les opportunités actuelles.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden animate-slide-up" style="animation-delay: 0.2s;">
+                        <button class="faq-toggle w-full px-6 py-4 text-left font-semibold text-forest-700 hover:text-forest-800 transition-colors duration-300 flex justify-between items-center">
+                            <span>Proposez-vous des formations pour les agriculteurs ?</span>
+                            <svg class="faq-icon h-5 w-5 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="faq-content px-6 pb-4 hidden">
+                            <p class="text-gray-600">Oui, nous organisons régulièrement des formations sur les techniques d'agroforesterie, la gestion durable de l'eau et l'agriculture biologique. Consultez notre calendrier d'événements ou contactez-nous pour connaître les prochaines sessions.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden animate-slide-up" style="animation-delay: 0.3s;">
+                        <button class="faq-toggle w-full px-6 py-4 text-left font-semibold text-forest-700 hover:text-forest-800 transition-colors duration-300 flex justify-between items-center">
+                            <span>Comment puis-je obtenir des conseils pour mon exploitation agricole ?</span>
+                            <svg class="faq-icon h-5 w-5 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="faq-content px-6 pb-4 hidden">
+                            <p class="text-gray-600">Nous offrons des services de conseil personnalisés pour les agriculteurs. Vous pouvez nous contacter par téléphone, email ou en remplissant le formulaire de contact sur cette page. Un de nos experts vous contactera pour discuter de vos besoins spécifiques.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 4 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden animate-slide-up" style="animation-delay: 0.4s;">
+                        <button class="faq-toggle w-full px-6 py-4 text-left font-semibold text-forest-700 hover:text-forest-800 transition-colors duration-300 flex justify-between items-center">
+                            <span>Travaillez-vous avec des organisations internationales ?</span>
+                            <svg class="faq-icon h-5 w-5 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="faq-content px-6 pb-4 hidden">
+                            <p class="text-gray-600">Oui, nous collaborons avec plusieurs organisations internationales et ONG pour mettre en œuvre nos projets d'agroforesterie. Nous sommes toujours ouverts à de nouveaux partenariats qui partagent notre vision d'une agriculture durable en Guinée.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <script src="main.js"></script>
-</body>
-</html>
+    <!-- Footer -->
+    <footer class="bg-forest-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- À propos -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">À propos de GAF</h3>
+                    <p class="text-gray-300 mb-4">GAF est un projet dédié à la promotion de l'agroforesterie durable en Guinée pour un avenir plus vert et plus prospère.</p>
+                    <div class="flex space-x-3">
+                        <a href="https://facebook.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Liens rapides -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Liens rapides</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            Accueil
+                        </a></li>
+                        <li><a href="a-propos.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            À Propos
+                        </a></li>
+                        <li><a href="activites.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            Nos Activités
+                        </a></li>
+                        <li><a href="blog.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            Blog & Actualités
+                        </a></li>
+                        
+                        <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            Contact
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <!-- Activités -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Nos Activités</h3>
+                    <ul class="space-y-2">
+                        <li><a href="activites.html#reboisement" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            Reboisement
+                        </a></li>
+                        <li><a href="activites.html#formation" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            Formation
+                        </a></li>
+                        <li><a href="activites.html#eau" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            Gestion de l'eau
+                        </a></li>
+                        <li><a href="activites.html#agriculture" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            Agriculture Durable
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-forest-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span class="text-gray-300">Quartier Kipé, Conakry, Guinée</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-forest-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                            <span class="text-gray-300">+224 620 12 34 56</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-forest-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <span class="text-gray-300">daoucamara@gmail.com</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-semibold mb-2">Inscrivez-vous à notre newsletter</h4>
+                        <form action="#" method="POST" class="flex">
+                            <input type="email" placeholder="Votre email" required
+                                class="flex-1 px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/10 text-white placeholder-gray-400">
+                            <button type="submit" class="px-4 py-2 bg-forest-600 hover:bg-forest-700 rounded-r-lg transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-white/10">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                        &copy; 2024 GAF - Guinéenne d'Agroforesterie. Par YATTARA Ousmane
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="mentions-legales.html" class="text-gray-400 hover:text-white text-sm transition-colors duration-300">Mentions légales</a>
+                        <a href="politique-confidentialite.html" class="text-gray-400 hover:text-white text-sm transition-colors duration-300">Politique de confidentialité</a>
+                        <a href="contact.html" class="text-gray-400 hover:text-white text-sm transition-colors duration-300">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bouton WhatsApp flottant -->
+    <a href="https://wa.me/224620123456" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Bouton retour en haut -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 z-50 p-3 bg-forest-600 text-white rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-forest-700 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+           <!-- Scripts -->
+           <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+           <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+           <script>
+               // Navigation mobile
+               document.getElementById('mobile-menu-button').addEventListener('click', function() {
+                   document.getElementById('mobile-menu').classList.toggle('hidden');
+               });
+   
+               // FAQ Toggle
+               document.querySelectorAll('.faq-toggle').forEach(toggle => {
+                   toggle.addEventListener('click', function() {
+                       const content = this.nextElementSibling;
+                       const icon = this.querySelector('.faq-icon');
+                       
+                       // Toggle content visibility
+                       if (content.classList.contains('hidden')) {
+                           content.classList.remove('hidden');
+                           icon.classList.add('rotate-180');
+                       } else {
+                           content.classList.add('hidden');
+                           icon.classList.remove('rotate-180');
+                       }
+                   });
+               });
+   
+               // Bouton retour en haut
+               const backToTopButton = document.getElementById('back-to-top');
+               
+               window.addEventListener('scroll', () => {
+                   if (window.pageYOffset > 300) {
+                       backToTopButton.classList.remove('opacity-0', 'invisible');
+                       backToTopButton.classList.add('opacity-100', 'visible');
+                   } else {
+                       backToTopButton.classList.remove('opacity-100', 'visible');
+                       backToTopButton.classList.add('opacity-0', 'invisible');
+                   }
+               });
+               
+               backToTopButton.addEventListener('click', () => {
+                   window.scrollTo({
+                       top: 0,
+                       behavior: 'smooth'
+                   });
+               });
+   
+               // Animation au défilement
+               function revealOnScroll() {
+                   const elements = document.querySelectorAll('.animate-slide-up, .animate-slide-down, .animate-slide-left, .animate-slide-right, .animate-fade-in');
+                   
+                   elements.forEach(element => {
+                       const elementTop = element.getBoundingClientRect().top;
+                       const elementVisible = 150;
+                       
+                       if (elementTop < window.innerHeight - elementVisible) {
+                           element.classList.add('visible');
+                       }
+                   });
+               }
+   
+               window.addEventListener('scroll', revealOnScroll);
+               revealOnScroll();
+           </script>
+       </main>
+   </body>
+   </html>
+   
