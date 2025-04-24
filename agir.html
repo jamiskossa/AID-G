@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agir pour l'Environnement - Éco-Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'eco-green': {
+                            100: '#e6f5e6',
+                            200: '#c2e5c2',
+                            300: '#9ed59e',
+                            400: '#7ac57a',
+                            500: '#56b556',
+                            600: '#45a445',
+                            700: '#348834',
+                            800: '#236c23',
+                            900: '#125012',
+                        },
+                        'eco-blue': {
+                            100: '#e6f0ff',
+                            200: '#c2d9ff',
+                            300: '#9ec2ff',
+                            400: '#7aabff',
+                            500: '#5694ff',
+                            600: '#4576cc',
+                            700: '#345999',
+                            800: '#233b66',
+                            900: '#121e33',
+                        },
+                    },
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Styles personnalisés qui ne peuvent pas être facilement réalisés avec Tailwind */
+        .bg-gradient-eco {
+            background: linear-gradient(135deg, #56b556 0%, #348834 50%, #125012 100%);
+        }
+        .text-gradient-eco {
+            background: linear-gradient(90deg, #56b556, #348834);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(18,80,18,0.7));
+        }
+        .menu-transition {
+            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+        }
+        .action-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="font-poppins bg-gray-50 text-gray-800">
+    <!-- Header avec menu de navigation -->
+    <header class="relative z-50">
+        <nav class="bg-white shadow-md">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <!-- Logo -->
+                <div class="w-32 h-12 relative overflow-hidden rounded-lg">
+                    <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+                        <source src="kankou.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la vidéo.
+                    </video>
+                </div>
+                
+                <!-- Menu pour desktop -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-eco-green-600 font-medium hover:text-eco-green-800 transition-colors duration-300">Accueil</a>
+                    <a href="about.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">A propos</a>
+                    <a href="environnement.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Environnement</a>
+                    <a href="reboisement.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Reboisement</a>
+                    <a href="pollution.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Pollution</a>
+                    <a href="dechets.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Déchets</a>
+                    <a href="faune-flore.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Faune & Flore</a>
+                    <a href="agir.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Agir</a>
+                </div>
+                
+                <!-- Bouton de menu pour mobile -->
+                <button id="menuToggle" class="md:hidden flex items-center p-2 rounded-full bg-eco-green-100 text-eco-green-600 hover:bg-eco-green-200 transition-colors duration-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Menu mobile (caché par défaut) -->
+            <div id="mobileMenu" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+                <div class="bg-white h-full w-4/5 max-w-xs p-5 transform -translate-x-full menu-transition">
+                    <div class="flex justify-between items-center mb-8">
+                        <h2 class="text-xl font-bold text-gradient-eco">Menu</h2>
+                        <button id="closeMenu" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div class="flex flex-col space-y-4">
+                        <a href="index.html" class="text-eco-green-600 font-medium hover:text-eco-green-800 transition-colors duration-300">Accueil</a>
+                        <a href="about.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">A propos</a>
+                        <a href="environnement.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Environnement</a>
+                        <a href="reboisement.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Reboisement</a>
+                        <a href="pollution.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Pollution</a>
+                        <a href="dechets.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Déchets</a>
+                        <a href="faune-flore.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Faune & Flore</a>
+                        <a href="agir.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Agir</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Section héro avec image en arrière-plan -->
+    <section class="relative h-80 md:h-96">
+        <div class="absolute inset-0 overflow-hidden">
+            <img src="naturebelle.jpg" alt="Agir pour l'environnement" class="w-full h-full object-cover">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+        <div class="relative h-full flex items-center justify-center text-center px-4">
+            <div class="max-w-3xl animate-float">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Agir pour l'Environnement</h1>
+                <p class="text-xl text-white mb-6">Chaque geste compte pour préserver notre planète</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 py-12">
+        <!-- Introduction -->
+        <section class="max-w-4xl mx-auto mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-center text-gradient-eco">Pourquoi agir maintenant ?</h2>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Face aux défis environnementaux actuels, chaque action compte. Le changement climatique, la perte de biodiversité, la pollution et l'épuisement des ressources naturelles sont des problèmes urgents qui nécessitent une mobilisation collective. En agissant dès aujourd'hui, nous pouvons contribuer à préserver notre planète pour les générations futures.
+            </p>
+        </section>
+        
+        <!-- Cartes d'action -->
+        <section class="mb-16">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="action-card bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 hover:shadow-2xl">
+                    <div class="text-5xl mb-6 text-center">🏠</div>
+                    <h3 class="text-xl font-bold mb-3 text-eco-green-800 text-center">À la maison</h3>
+                    <p class="text-gray-600 mb-6 text-center">Adoptez des gestes éco-responsables au quotidien : économisez l'énergie, réduisez votre consommation d'eau, et triez vos déchets.</p>
+                    <div class="text-center">
+                        <a href="/agir/maison" class="inline-block px-6 py-2 bg-eco-green-600 hover:bg-eco-green-700 text-white font-medium rounded-lg transition-colors duration-300">En savoir plus</a>
+                    </div>
+                </div>
+                
+                <div class="action-card bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 hover:shadow-2xl">
+                    <div class="text-5xl mb-6 text-center">🍽️</div>
+                    <h3 class="text-xl font-bold mb-3 text-eco-green-800 text-center">Alimentation</h3>
+                    <p class="text-gray-600 mb-6 text-center">Privilégiez une alimentation durable : produits locaux et de saison, réduction de la consommation de viande, lutte contre le gaspillage alimentaire.</p>
+                    <div class="text-center">
+                        <a href="/agir/alimentation" class="inline-block px-6 py-2 bg-eco-green-600 hover:bg-eco-green-700 text-white font-medium rounded-lg transition-colors duration-300">Découvrir</a>
+                    </div>
+                </div>
+                
+                <div class="action-card bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 hover:shadow-2xl">
+                    <div class="text-5xl mb-6 text-center">🚲</div>
+                    <h3 class="text-xl font-bold mb-3 text-eco-green-800 text-center">Transports</h3>
+                    <p class="text-gray-600 mb-6 text-center">Optez pour des moyens de transport plus écologiques : vélo, marche, transports en commun, covoiturage.</p>
+                    <div class="text-center">
+                        <a href="/agir/transports" class="inline-block px-6 py-2 bg-eco-green-600 hover:bg-eco-green-700 text-white font-medium rounded-lg transition-colors duration-300">Explorer</a>
+                    </div>
+                </div>
+                
+                <div class="action-card bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 hover:shadow-2xl">
+                    <div class="text-5xl mb-6 text-center">🛍️</div>
+                    <h3 class="text-xl font-bold mb-3 text-eco-green-800 text-center">Consommation</h3>
+                    <p class="text-gray-600 mb-6 text-center">Adoptez une consommation responsable : achetez d'occasion, réparez, recyclez, et choisissez des produits éco-labellisés.</p>
+                    <div class="text-center">
+                        <a href="/agir/consommation" class="inline-block px-6 py-2 bg-eco-green-600 hover:bg-eco-green-700 text-white font-medium rounded-lg transition-colors duration-300">Apprendre</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section CTA -->
+        <section class="bg-eco-green-100 rounded-3xl p-8 md:p-12 mb-16 shadow-lg">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-2xl md:text-3xl font-bold text-eco-green-800 mb-4">Rejoignez la communauté Éco-Citoyens</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                    Ensemble, nous sommes plus forts ! Rejoignez notre communauté d'éco-citoyens engagés pour partager vos expériences, vos conseils et vos idées pour un mode de vie plus durable.
+                </p>
+                <a href="/communaute" class="inline-block px-8 py-3 bg-gradient-eco text-white font-medium rounded-full shadow-lg hover:opacity-90 transition-opacity duration-300">
+                    Rejoindre la communauté
+                </a>
+            </div>
+        </section>
+        
+        <!-- Initiatives locales et globales -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-10 text-center text-gradient-eco">Initiatives locales et globales</h2>
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                <p class="text-lg text-gray-700 leading-relaxed mb-6 text-center">
+                    Découvrez des projets inspirants près de chez vous et dans le monde entier :
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-eco-green-200 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-seedling text-eco-green-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-eco-green-800">Jardins partagés et agriculture urbaine</h4>
+                            <p class="text-gray-600">Cultivez des aliments localement et créez des espaces verts communautaires</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-eco-green-200 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-tools text-eco-green-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-eco-green-800">Repair Cafés</h4>
+                            <p class="text-gray-600">Réparez plutôt que de jeter, avec l'aide de bénévoles compétents</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-eco-blue-200 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-trash-alt text-eco-blue-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-eco-blue-800">Campagnes de nettoyage de la nature</h4>
+                            <p class="text-gray-600">Participez à des actions collectives pour nettoyer plages, forêts et rivières</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-eco-green-200 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-tree text-eco-green-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-eco-green-800">Projets de reforestation</h4>
+                            <p class="text-gray-600">Contribuez à la plantation d'arbres pour restaurer les écosystèmes</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-eco-green-200 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-recycle text-eco-green-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-eco-green-800">Initiatives zéro déchet</h4>
+                            <p class="text-gray-600">Rejoignez des groupes locaux engagés dans la réduction des déchets</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-8">
+                    <a href="/agir/initiatives" class="inline-block px-8 py-3 bg-gradient-eco text-white font-medium rounded-full shadow-lg hover:opacity-90 transition-opacity duration-300">
+                        Explorez les initiatives
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Défi Éco du Mois -->
+        <section class="mb-16">
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="bg-gradient-eco p-6">
+                    <h3 class="text-2xl font-bold text-white text-center">Le Défi Éco du Mois</h3>
+                </div>
+                <div class="p-8">
+                    <p class="text-lg text-gray-700 mb-6 text-center">
+                        Participez à notre défi mensuel pour adopter de nouvelles habitudes écologiques :
+                    </p>
+                    <div class="border-2 border-eco-green-500 rounded-xl p-6 mb-6">
+                        <h4 class="text-xl font-bold mb-3 text-eco-green-800 text-center">Juin : Zéro Plastique</h4>
+                        <p class="text-gray-700 mb-4 text-center">Objectif : Réduire au maximum votre utilisation de plastique à usage unique pendant 30 jours.</p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-eco-green-500 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Utilisez des sacs réutilisables pour vos courses</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-eco-green-500 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Adoptez une gourde pour l'eau</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-eco-green-500 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Choisissez des alternatives aux emballages plastiques</span>
+                            </li>
+                        </ul>
+                        <div class="text-center">
+                            <a href="/defis/zero-plastique" class="inline-block px-6 py-2 bg-eco-green-600 hover:bg-eco-green-700 text-white font-medium rounded-lg transition-colors duration-300">Relever le défi</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Éducation et sensibilisation -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-10 text-center text-gradient-eco">Éducation et sensibilisation</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8 text-center">
+                L'éducation est la clé pour un avenir durable. Voici comment vous pouvez contribuer à sensibiliser votre entourage :
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-2xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl">
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="w-10 h-10 bg-eco-green-200 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fas fa-share-alt text-eco-green-700"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-eco-green-800">Partagez vos connaissances</h4>
+                                <p class="text-gray-600">Transmettez vos expériences et conseils à votre entourage</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-10 h-10 bg-eco-green-200 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fas fa-users text-eco-green-700"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-eco-green-800">Organisez des ateliers</h4>
+                                <p class="text-gray-600">Créez des événements éducatifs dans votre communauté</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl">
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="w-10 h-10 bg-eco-blue-200 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fas fa-school text-eco-blue-700"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-eco-blue-800">Soutenez l'éducation environnementale</h4>
+                                <p class="text-gray-600">Encouragez les programmes écologiques dans les écoles</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-10 h-10 bg-eco-blue-200 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fas fa-hashtag text-eco-blue-700"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-eco-blue-800">Utilisez les réseaux sociaux</h4>
+                                <p class="text-gray-600">Diffusez des informations et des conseils écologiques</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <a href="/agir/education" class="inline-block px-8 py-3 bg-gradient-eco text-white font-medium rounded-full shadow-lg hover:opacity-90 transition-opacity duration-300">
+                    Ressources éducatives
+                </a>
+            </div>
+        </section>
+        
+        <!-- Engagement politique et citoyen -->
+        <section class="bg-eco-blue-50 rounded-3xl p-8 md:p-12 mb-16 shadow-lg">
+            <h2 class="text-3xl font-bold mb-6 text-center text-gradient-eco">Engagement politique et citoyen</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8 text-center">
+                Votre voix compte ! Impliquez-vous dans la prise de décision pour un avenir plus durable :
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-eco-blue-200 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-info-circle text-eco-blue-700 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-eco-blue-800 text-center">Informez-vous</h3>
+                    <p class="text-gray-700 text-center">Restez au courant des enjeux environnementaux locaux et nationaux</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-eco-green-200 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-comments text-eco-green-700 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-eco-green-800 text-center">Participez aux consultations</h3>
+                    <p class="text-gray-700 text-center">Exprimez-vous lors des consultations publiques sur les projets environnementaux</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-eco-blue-200 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-vote-yea text-eco-blue-700 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-eco-blue-800 text-center">Soutenez les politiques vertes</h3>
+                    <p class="text-gray-700 text-center">Votez pour les candidats et les politiques en faveur de l'environnement</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-eco-green-200 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-hands-helping text-eco-green-700 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-eco-green-800 text-center">Rejoignez des associations</h3>
+                    <p class="text-gray-700 text-center">Soutenez ou devenez membre d'organisations environnementales</p>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="/agir/engagement-citoyen" class="inline-block px-8 py-3 bg-gradient-eco text-white font-medium rounded-full shadow-lg hover:opacity-90 transition-opacity duration-300">
+                    S'engager
+                </a>
+            </div>
+        </section>
+        
+        <!-- Newsletter -->
+        <section class="bg-gradient-eco rounded-3xl p-8 md:p-12 mb-16">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Restez informé des actions écologiques</h2>
+                <p class="text-white opacity-90 mb-8">Inscrivez-vous à notre newsletter pour recevoir des conseils, des idées d'actions et des informations sur les événements écologiques à venir.</p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+                    <input type="email" placeholder="Votre adresse email" class="flex-grow py-3 px-6 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
+                    <button type="submit" class="bg-white text-eco-green-700 font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition-colors duration-300 shadow-lg">S'abonner</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Éco-Blog</h3>
+                    <p class="text-gray-400 mb-6">Inspirons le changement, cultivons un avenir durable pour les générations futures.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-eco-green-700 flex items-center justify-center hover:bg-eco-green-600 transition-colors duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-eco-green-700 flex items-center justify-center hover:bg-eco-green-600 transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-eco-green-700 flex items-center justify-center hover:bg-eco-green-600 transition-colors duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-eco-green-700 flex items-center justify-center hover:bg-eco-green-600 transition-colors duration-300">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Liens rapides</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors duration-300">Accueil</a></li>
+                        <li><a href="environnement.html" class="text-gray-400 hover:text-white transition-colors duration-300">Environnement</a></li>
+                        <li><a href="reboisement.html" class="text-gray-400 hover:text-white transition-colors duration-300">Reboisement</a></li>
+                        <li><a href="pollution.html" class="text-gray-400 hover:text-white transition-colors duration-300">Pollution</a></li>
+                        <li><a href="dechets.html" class="text-gray-400 hover:text-white transition-colors duration-300">Déchets</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Ressources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Guides pratiques</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Études de cas</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Événements</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-eco-green-500"></i>
+                            <span class="text-gray-400">123 Rue de l'Écologie, 75001 Paris, France</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-eco-green-500"></i>
+                            <span class="text-gray-400">+33 1 23 45 67 89</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-eco-green-500"></i>
+                            <span class="text-gray-400">contact@eco-blog.earth</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 mb-4 md:mb-0">&copy; 2024 Eco-Blog. Par YATTARA Ousmane. Tous droits réservés.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Politique de confidentialité</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Conditions d'utilisation</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Mentions légales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Menu mobile toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const closeMenu = document.getElementById('closeMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuContent = mobileMenu.querySelector('div');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.remove('hidden');
+                setTimeout(() => {
+                    mobileMenuContent.style.transform = 'translateX(0)';
+                }, 10);
+            });
+            
+            closeMenu.addEventListener('click', function() {
+                mobileMenuContent.style.transform = 'translateX(-100%)';
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                }, 500);
+            });
+            
+            // Fermer le menu si on clique en dehors
+            mobileMenu.addEventListener('click', function(e) {
+                if (e.target === mobileMenu) {
+                    mobileMenuContent.style.transform = 'translateX(-100%)';
+                    setTimeout(() => {
+                        mobileMenu.classList.add('hidden');
+                    }, 500);
+                }
+            });
+        });
+
+        // Animation au défilement
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            document.querySelectorAll('.action-card, section > div').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

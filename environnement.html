@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eco-blog - kankou</title>
+    <title>Protection de l'Environnement - Éco-Blog</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -60,16 +60,16 @@
         }
         .text-gradient-eco {
             background: linear-gradient(90deg, #56b556, #348834);
-            background-clip: text;
+            -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .hero-overlay {
-            background: linear-gradient(to bottom, rgba(7, 37, 4, 0.2), rgba(18,80,18,0.7));
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(18,80,18,0.7));
         }
         .menu-transition {
             transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
         }
-        .feature-card:hover {
+        .article-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
@@ -134,130 +134,158 @@
     <section class="relative h-screen">
         <div class="absolute inset-0 overflow-hidden">
             <video class="w-full h-full object-cover" autoplay loop muted playsinline>
-                <source src="world.mp4" type="video/mp4">
+                <source src="envi.mp4" type="video/mp4">
                 Votre navigateur ne supporte pas la vidéo HTML5.
             </video>
             <div class="absolute inset-0 hero-overlay"></div>
         </div>
         <div class="relative h-full flex items-center justify-center text-center px-4">
             <div class="max-w-3xl animate-float">
-                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6">Éco-Blog</h1>
-                <p class="text-xl md:text-2xl text-white mb-10">Inspirons le changement, cultivons un avenir durable</p>
-                <a href="action.html" class="inline-block px-8 py-4 bg-eco-green-600 hover:bg-eco-green-700 text-white font-medium rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
-                    Passez à l'action
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6">Protection de l'Environnement</h1>
+                <p class="text-xl md:text-2xl text-white mb-10">Découvrez les enjeux et les solutions pour préserver notre planète</p>
+                <a href="/decouvrir" class="inline-block px-8 py-4 bg-eco-green-600 hover:bg-eco-green-700 text-white font-medium rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
+                    Découvrir le Futur
                 </a>
             </div>
         </div>
     </section>
 
     <main class="container mx-auto px-4 py-12">
-        <!-- Barre de recherche -->
-        <section class="max-w-2xl mx-auto mb-16">
-            <form action="https://www.google.com/search" method="get" class="flex flex-col md:flex-row shadow-lg rounded-full overflow-hidden">
-                <input type="hidden" name="sitesearch" value="eco-blog.earth">
-                <input type="text" name="q" placeholder="Explorez nos articles écologiques..." class="flex-grow py-4 px-6 focus:outline-none text-gray-700">
-                <button type="submit" class="bg-gradient-eco text-white font-medium py-4 px-8 md:px-12 hover:opacity-90 transition-opacity duration-300">
-                    Rechercher
-                </button>
-            </form>
+        <!-- Introduction -->
+        <section class="max-w-4xl mx-auto mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-center text-gradient-eco">Comprendre les enjeux environnementaux</h2>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                La protection de l'environnement est devenue l'un des défis majeurs de notre époque. Face aux changements climatiques, à la perte de biodiversité et à la pollution croissante, il est crucial de comprendre les enjeux et d'agir pour préserver notre planète.
+            </p>
         </section>
         
-        <!-- Section des fonctionnalités -->
+        <!-- Articles -->
         <section class="mb-20">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="feature-card bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 hover:shadow-2xl">
-                    <div class="text-5xl mb-6 text-eco-green-500">🌱</div>
-                    <h2 class="text-2xl font-bold mb-4 text-eco-green-800">Initiatives vertes</h2>
-                    <p class="text-gray-600 mb-6">Découvrez des projets innovants pour un monde plus vert et participez activement au changement.</p>
-                    <a href="/initiatives-vertes" class="inline-block px-6 py-2 bg-eco-green-100 text-eco-green-700 font-medium rounded-lg hover:bg-eco-green-200 transition-colors duration-300">Explorer</a>
+                <div class="article-card bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:shadow-2xl">
+                    <div class="h-60 overflow-hidden">
+                        <img src="climat.jpg" alt="Changement climatique" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-eco-green-800">Changement climatique : comprendre et agir</h3>
+                        <p class="text-gray-600 mb-6">Explorez les causes et les conséquences du réchauffement climatique, ainsi que les solutions pour limiter son impact.</p>
+                        <a href="/environnement/changement-climatique" class="inline-block px-6 py-2 bg-gradient-eco text-white font-medium rounded-lg hover:opacity-90 transition-opacity duration-300">Lire l'article</a>
+                    </div>
                 </div>
                 
-                <div class="feature-card bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 hover:shadow-2xl">
-                    <div class="text-5xl mb-6 text-eco-blue-500">🔬</div>
-                    <h2 class="text-2xl font-bold mb-4 text-eco-blue-800">Éco-technologies</h2>
-                    <p class="text-gray-600 mb-6">Plongez dans le monde des technologies durables qui façonnent notre avenir écologique.</p>
-                    <a href="/eco-technologies" class="inline-block px-6 py-2 bg-eco-blue-100 text-eco-blue-700 font-medium rounded-lg hover:bg-eco-blue-200 transition-colors duration-300">Découvrir</a>
+                <div class="article-card bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:shadow-2xl">
+                    <div class="h-60 overflow-hidden">
+                        <img src="bio.jpg" alt="Biodiversité" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-eco-blue-800">Préserver la biodiversité : un enjeu vital</h3>
+                        <p class="text-gray-600 mb-6">Découvrez l'importance de la biodiversité pour l'équilibre de notre écosystème et les moyens de la protéger.</p>
+                        <a href="/environnement/biodiversite" class="inline-block px-6 py-2 bg-gradient-eco text-white font-medium rounded-lg hover:opacity-90 transition-opacity duration-300">Lire l'article</a>
+                    </div>
                 </div>
                 
-                <div class="feature-card bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 hover:shadow-2xl">
-                    <div class="text-5xl mb-6 text-eco-green-500">🌍</div>
-                    <h2 class="text-2xl font-bold mb-4 text-eco-green-800">Éducation environnementale</h2>
-                    <p class="text-gray-600 mb-6">Apprenez et enseignez les fondamentaux de l'écologie pour un impact durable.</p>
-                    <a href="/education-environnementale" class="inline-block px-6 py-2 bg-eco-green-100 text-eco-green-700 font-medium rounded-lg hover:bg-eco-green-200 transition-colors duration-300">Apprendre</a>
+                <div class="article-card bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:shadow-2xl">
+                    <div class="h-60 overflow-hidden">
+                        <img src="fumee.jpg" alt="Pollution" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-eco-green-800">Lutter contre la pollution : des solutions concrètes</h3>
+                        <p class="text-gray-600 mb-6">Apprenez comment réduire la pollution de l'air, de l'eau et des sols à travers des gestes quotidiens et des initiatives collectives.</p>
+                        <a href="/environnement/lutte-pollution" class="inline-block px-6 py-2 bg-gradient-eco text-white font-medium rounded-lg hover:opacity-90 transition-opacity duration-300">Lire l'article</a>
+                    </div>
                 </div>
             </div>
         </section>
         
-        <!-- Section des articles récents -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold mb-10 text-center text-gradient-eco">Articles à la une</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-transform duration-500 hover:-translate-y-2">
-                    <div class="h-60 overflow-hidden">
-                        <img src="soil.jpg" alt="Agriculture urbaine" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-3 text-eco-green-800">L'hydroponie : Révolutionner l'agriculture urbaine</h3>
-                        <p class="text-gray-600 mb-6">Explorez comment cette méthode de culture sans sol transforme nos villes en oasis verts.</p>
-                        <a href="/agriculture-urbaine/hydroponie" class="inline-block px-6 py-2 bg-gradient-eco text-white font-medium rounded-lg hover:opacity-90 transition-opacity duration-300">Lire l'article</a>
-                    </div>
+        <!-- Technologies -->
+        <section class="bg-white rounded-3xl shadow-lg p-8 md:p-12 mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-center text-gradient-eco">Technologies modernes pour la protection de l'environnement</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8 text-center max-w-4xl mx-auto">
+                Les avancées technologiques jouent un rôle crucial dans la préservation de notre planète. Voici quelques innovations prometteuses :
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+                <div class="bg-eco-green-100 rounded-xl p-4 text-center hover:bg-eco-green-200 transition-colors duration-300">
+                    <div class="text-3xl mb-2">🌡️</div>
+                    <p class="text-eco-green-800 font-medium">Capteurs intelligents pour surveiller la qualité de l'air et de l'eau</p>
                 </div>
-                
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-transform duration-500 hover:-translate-y-2">
-                    <div class="h-60 overflow-hidden">
-                        <img src="pollution.webp" alt="Nettoyage des océans" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-3 text-eco-blue-800">Nettoyage des océans : Innovations prometteuses</h3>
-                        <p class="text-gray-600 mb-6">Découvrez les dernières technologies luttant contre la pollution plastique marine.</p>
-                        <a href="/pollution/nettoyage-oceans" class="inline-block px-6 py-2 bg-gradient-eco text-white font-medium rounded-lg hover:opacity-90 transition-opacity duration-300">Lire l'article</a>
-                    </div>
+                <div class="bg-eco-green-100 rounded-xl p-4 text-center hover:bg-eco-green-200 transition-colors duration-300">
+                    <div class="text-3xl mb-2">🛩️</div>
+                    <p class="text-eco-green-800 font-medium">Drones pour le suivi et la protection de la faune</p>
                 </div>
-                
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-transform duration-500 hover:-translate-y-2">
-                    <div class="h-60 overflow-hidden">
-                        <img src="naturebelle.jpg" alt="Rewilding" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-3 text-eco-green-800">Le rewilding : Restaurer les écosystèmes sauvages</h3>
-                        <p class="text-gray-600 mb-6">Comment le retour à la nature sauvage peut sauver notre biodiversité.</p>
-                        <a href="/faune-flore/rewilding" class="inline-block px-6 py-2 bg-gradient-eco text-white font-medium rounded-lg hover:opacity-90 transition-opacity duration-300">Lire l'article</a>
-                    </div>
+                <div class="bg-eco-green-100 rounded-xl p-4 text-center hover:bg-eco-green-200 transition-colors duration-300">
+                    <div class="text-3xl mb-2">🧠</div>
+                    <p class="text-eco-green-800 font-medium">Intelligence artificielle pour optimiser la consommation d'énergie</p>
+                </div>
+                <div class="bg-eco-green-100 rounded-xl p-4 text-center hover:bg-eco-green-200 transition-colors duration-300">
+                    <div class="text-3xl mb-2">♻️</div>
+                    <p class="text-eco-green-800 font-medium">Matériaux biodégradables pour réduire les déchets plastiques</p>
+                </div>
+                <div class="bg-eco-green-100 rounded-xl p-4 text-center hover:bg-eco-green-200 transition-colors duration-300">
+                    <div class="text-3xl mb-2">🏭</div>
+                    <p class="text-eco-green-800 font-medium">Technologies de capture et de stockage du carbone</p>
                 </div>
             </div>
+            <div class="text-center">
+                <a href="/environnement/technologies-vertes" class="inline-block px-8 py-3 bg-gradient-eco text-white font-medium rounded-full shadow-lg hover:opacity-90 transition-opacity duration-300">
+                    En savoir plus sur les éco-technologies
+                </a>
+            </div>
         </section>
-
-        <!-- Section newsletter -->
-        <section class="bg-gradient-eco rounded-3xl p-8 md:p-12 mb-20">
+        
+        <!-- Comment s'impliquer -->
+        <section class="bg-eco-blue-50 rounded-3xl shadow-lg p-8 md:p-12 mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-center text-gradient-eco">Comment s'impliquer ?</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8 text-center max-w-4xl mx-auto">
+                Chacun peut contribuer à la protection de l'environnement. Voici quelques pistes d'action :
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-eco-green-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-leaf text-2xl text-eco-green-600"></i>
+                    </div>
+                    <p class="text-gray-700">Adopter un mode de vie plus durable au quotidien</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-eco-green-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-hands-helping text-2xl text-eco-green-600"></i>
+                    </div>
+                    <p class="text-gray-700">Participer à des initiatives locales de nettoyage ou de plantation</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-eco-green-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-hand-holding-heart text-2xl text-eco-green-600"></i>
+                    </div>
+                    <p class="text-gray-700">Soutenir des associations environnementales</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-eco-green-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-bullhorn text-2xl text-eco-green-600"></i>
+                    </div>
+                    <p class="text-gray-700">S'informer et sensibiliser son entourage aux enjeux environnementaux</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-eco-green-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-shopping-basket text-2xl text-eco-green-600"></i>
+                    </div>
+                    <p class="text-gray-700">Privilégier des produits et services éco-responsables</p>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="/agir" class="inline-block px-8 py-3 bg-gradient-eco text-white font-medium rounded-full shadow-lg hover:opacity-90 transition-opacity duration-300">
+                    Découvrir plus d'actions concrètes
+                </a>
+            </div>
+        </section>
+        
+        <!-- Newsletter -->
+        <section class="bg-gradient-eco rounded-3xl p-8 md:p-12 mb-16">
             <div class="max-w-3xl mx-auto text-center">
-                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Restez informé des dernières actualités écologiques</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Restez informé des dernières actualités environnementales</h2>
                 <p class="text-white opacity-90 mb-8">Inscrivez-vous à notre newsletter pour recevoir des conseils, des actualités et des inspirations pour un mode de vie plus durable.</p>
                 <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
                     <input type="email" placeholder="Votre adresse email" class="flex-grow py-3 px-6 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
                     <button type="submit" class="bg-white text-eco-green-700 font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition-colors duration-300 shadow-lg">S'abonner</button>
                 </form>
-            </div>
-        </section>
-
-        <!-- Section statistiques -->
-        <section class="mb-20">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
-                <div class="bg-white rounded-2xl shadow-lg p-6 animate-pulse-slow">
-                    <div class="text-4xl font-bold text-eco-green-600 mb-2">3.2M+</div>
-                    <p class="text-gray-600">Arbres plantés</p>
-                </div>
-                <div class="bg-white rounded-2xl shadow-lg p-6 animate-pulse-slow" style="animation-delay: 0.5s;">
-                    <div class="text-4xl font-bold text-eco-blue-600 mb-2">85K+</div>
-                    <p class="text-gray-600">Tonnes de déchets recyclés</p>
-                </div>
-                <div class="bg-white rounded-2xl shadow-lg p-6 animate-pulse-slow" style="animation-delay: 1s;">
-                    <div class="text-4xl font-bold text-eco-green-600 mb-2">120+</div>
-                    <p class="text-gray-600">Espèces protégées</p>
-                </div>
-                <div class="bg-white rounded-2xl shadow-lg p-6 animate-pulse-slow" style="animation-delay: 1.5s;">
-                    <div class="text-4xl font-bold text-eco-blue-600 mb-2">450K+</div>
-                    <p class="text-gray-600">Membres actifs</p>
-                </div>
             </div>
         </section>
     </main>
@@ -390,13 +418,13 @@
                 threshold: 0.1
             });
             
-            document.querySelectorAll('.feature-card, .grid > div').forEach(el => {
+            document.querySelectorAll('.article-card, section > div').forEach(el => {
                 observer.observe(el);
             });
         });
 
-        // Configuration du chat Facebook
-        var chatbox = document.getElementById('fb-customer-chat');
+                // Configuration du chat Facebook
+                var chatbox = document.getElementById('fb-customer-chat');
         chatbox.setAttribute("page_id", "100000000000000"); // Remplacez par votre ID de page
         chatbox.setAttribute("attribution", "biz_inbox");
 
@@ -417,4 +445,3 @@
     </script>
 </body>
 </html>
-      

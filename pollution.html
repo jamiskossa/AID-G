@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pollution : Comprendre et Agir - Éco-Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'eco-green': {
+                            100: '#e6f5e6',
+                            200: '#c2e5c2',
+                            300: '#9ed59e',
+                            400: '#7ac57a',
+                            500: '#56b556',
+                            600: '#45a445',
+                            700: '#348834',
+                            800: '#236c23',
+                            900: '#125012',
+                        },
+                        'eco-blue': {
+                            100: '#e6f0ff',
+                            200: '#c2d9ff',
+                            300: '#9ec2ff',
+                            400: '#7aabff',
+                            500: '#5694ff',
+                            600: '#4576cc',
+                            700: '#345999',
+                            800: '#233b66',
+                            900: '#121e33',
+                        },
+                    },
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Styles personnalisés qui ne peuvent pas être facilement réalisés avec Tailwind */
+        .bg-gradient-eco {
+            background: linear-gradient(135deg, #56b556 0%, #348834 50%, #125012 100%);
+        }
+        .text-gradient-eco {
+            background: linear-gradient(90deg, #56b556, #348834);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(18,80,18,0.7));
+        }
+        .menu-transition {
+            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+        }
+        .pollution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="font-poppins bg-gray-50 text-gray-800">
+    <!-- Header avec menu de navigation -->
+    <header class="relative z-50">
+        <nav class="bg-white shadow-md">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <!-- Logo -->
+                <div class="w-32 h-12 relative overflow-hidden rounded-lg">
+                    <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+                        <source src="kankou.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la vidéo.
+                    </video>
+                </div>
+                
+                <!-- Menu pour desktop -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-eco-green-600 font-medium hover:text-eco-green-800 transition-colors duration-300">Accueil</a>
+                    <a href="about.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">A propos</a>
+                    <a href="environnement.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Environnement</a>
+                    <a href="reboisement.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Reboisement</a>
+                    <a href="pollution.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Pollution</a>
+                    <a href="dechets.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Déchets</a>
+                    <a href="faune-flore.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Faune & Flore</a>
+                    <a href="agir.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Agir</a>
+                </div>
+                
+                <!-- Bouton de menu pour mobile -->
+                <button id="menuToggle" class="md:hidden flex items-center p-2 rounded-full bg-eco-green-100 text-eco-green-600 hover:bg-eco-green-200 transition-colors duration-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Menu mobile (caché par défaut) -->
+            <div id="mobileMenu" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+                <div class="bg-white h-full w-4/5 max-w-xs p-5 transform -translate-x-full menu-transition">
+                    <div class="flex justify-between items-center mb-8">
+                        <h2 class="text-xl font-bold text-gradient-eco">Menu</h2>
+                        <button id="closeMenu" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div class="flex flex-col space-y-4">
+                        <a href="index.html" class="text-eco-green-600 font-medium hover:text-eco-green-800 transition-colors duration-300">Accueil</a>
+                        <a href="about.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">A propos</a>
+                        <a href="environnement.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Environnement</a>
+                        <a href="reboisement.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Reboisement</a>
+                        <a href="pollution.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Pollution</a>
+                        <a href="dechets.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Déchets</a>
+                        <a href="faune-flore.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Faune & Flore</a>
+                        <a href="agir.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Agir</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Section héro avec vidéo en arrière-plan -->
+    <section class="relative h-80 md:h-96">
+        <div class="absolute inset-0 overflow-hidden">
+            <video class="w-full h-full object-cover" autoplay loop muted playsinline>
+                <source src="boue.mp4" type="video/mp4">
+                Votre navigateur ne supporte pas la vidéo HTML5.
+            </video>
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+        <div class="relative h-full flex items-center justify-center text-center px-4">
+            <div class="max-w-3xl animate-float">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Pollution</h1>
+                <p class="text-xl text-white mb-6">Comprendre les enjeux et agir pour un monde plus propre</p>
+                <a href="action.html" class="inline-block px-8 py-3 bg-eco-green-600 hover:bg-eco-green-700 text-white font-medium rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
+                    Passez à l'action
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 py-12">
+        <!-- Introduction -->
+        <section class="max-w-4xl mx-auto mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-center text-gradient-eco">Qu'est-ce que la pollution atmosphérique ?</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                La pollution atmosphérique se définit comme la présence dans l'air de substances nocives pour la santé humaine et l'environnement. Ces polluants peuvent être d'origine naturelle ou résulter des activités humaines, principalement liées à l'industrie, aux transports et à l'agriculture intensive.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                La pollution est la dégradation d'un écosystème par l'introduction, généralement humaine, d'éléments (ou de quantités d'éléments) qui lui sont étrangers. Ces polluants peuvent être de nature chimique, physique ou biologique et affectent négativement l'environnement et la santé des êtres vivants.
+            </p>
+        </section>
+        
+        <!-- Types de pollution -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-10 text-center text-gradient-eco">Types de pollution</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div class="pollution-card bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 hover:shadow-2xl">
+                    <div class="text-5xl mb-6 text-eco-green-500">💨</div>
+                    <h3 class="text-xl font-bold mb-3 text-eco-green-800">Pollution de l'air</h3>
+                    <p class="text-gray-600 mb-6">Émissions de gaz à effet de serre, particules fines, smog urbain...</p>
+                    <a href="/pollution/air" class="inline-block px-6 py-2 bg-eco-green-100 text-eco-green-700 font-medium rounded-lg hover:bg-eco-green-200 transition-colors duration-300">En savoir plus</a>
+                </div>
+                
+                <div class="pollution-card bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 hover:shadow-2xl">
+                    <div class="text-5xl mb-6 text-eco-blue-500">💧</div>
+                    <h3 class="text-xl font-bold mb-3 text-eco-blue-800">Pollution de l'eau</h3>
+                    <p class="text-gray-600 mb-6">Déversements chimiques, microplastiques, eutrophisation...</p>
+                    <a href="/pollution/eau" class="inline-block px-6 py-2 bg-eco-blue-100 text-eco-blue-700 font-medium rounded-lg hover:bg-eco-blue-200 transition-colors duration-300">Découvrir</a>
+                </div>
+                
+                <div class="pollution-card bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 hover:shadow-2xl">
+                    <div class="text-5xl mb-6 text-eco-green-500">🌱</div>
+                    <h3 class="text-xl font-bold mb-3 text-eco-green-800">Pollution des sols</h3>
+                    <p class="text-gray-600 mb-6">Pesticides, métaux lourds, déchets industriels...</p>
+                    <a href="/pollution/sols" class="inline-block px-6 py-2 bg-eco-green-100 text-eco-green-700 font-medium rounded-lg hover:bg-eco-green-200 transition-colors duration-300">Explorer</a>
+                </div>
+                
+                <div class="pollution-card bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 hover:shadow-2xl">
+                    <div class="text-5xl mb-6 text-eco-blue-500">🔊</div>
+                    <h3 class="text-xl font-bold mb-3 text-eco-blue-800">Pollution sonore</h3>
+                    <p class="text-gray-600 mb-6">Bruit urbain, industriel, transports...</p>
+                    <a href="/pollution/sonore" class="inline-block px-6 py-2 bg-eco-blue-100 text-eco-blue-700 font-medium rounded-lg hover:bg-eco-blue-200 transition-colors duration-300">Approfondir</a>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                <div class="pollution-card bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 hover:shadow-2xl">
+                    <div class="text-5xl mb-6 text-eco-green-500">🏭</div>
+                    <h3 class="text-xl font-bold mb-3 text-eco-green-800">Pollution industrielle</h3>
+                    <p class="text-gray-600">Émissions de gaz et particules provenant des usines et des centrales électriques.</p>
+                </div>
+                
+                <div class="pollution-card bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 hover:shadow-2xl">
+                    <div class="text-5xl mb-6 text-eco-blue-500">🚗</div>
+                    <h3 class="text-xl font-bold mb-3 text-eco-blue-800">Pollution automobile</h3>
+                    <p class="text-gray-600">Gaz d'échappement et particules fines émis par les véhicules à moteur.</p>
+                </div>
+                
+                <div class="pollution-card bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 hover:shadow-2xl">
+                    <div class="text-5xl mb-6 text-eco-green-500">🏠</div>
+                    <h3 class="text-xl font-bold mb-3 text-eco-green-800">Pollution domestique</h3>
+                    <p class="text-gray-600">Émissions provenant du chauffage résidentiel et de l'utilisation de produits chimiques.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sources de pollution -->
+        <section class="bg-eco-blue-50 rounded-3xl p-8 md:p-12 mb-16 shadow-lg">
+            <h2 class="text-3xl font-bold mb-6 text-center text-gradient-eco">Les sources majeures de pollution</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6 text-center">Les principales sources de pollution incluent :</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-eco-green-200 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-industry text-2xl text-eco-green-700"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-eco-green-800 text-center">L'industrie</h3>
+                    <p class="text-gray-700 text-center">Usines, centrales électriques et autres installations industrielles</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-eco-blue-200 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-car text-2xl text-eco-blue-700"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-eco-blue-800 text-center">Les transports</h3>
+                    <p class="text-gray-700 text-center">Véhicules, avions, bateaux et autres moyens de transport</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-eco-green-200 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-tractor text-2xl text-eco-green-700"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-eco-green-800 text-center">L'agriculture intensive</h3>
+                    <p class="text-gray-700 text-center">Pesticides, engrais et autres produits chimiques agricoles</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-eco-blue-200 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-city text-2xl text-eco-blue-700"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-eco-blue-800 text-center">L'urbanisation</h3>
+                    <p class="text-gray-700 text-center">Déchets, eaux usées et autres pollutions urbaines</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-eco-green-200 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-shopping-cart text-2xl text-eco-green-700"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-eco-green-800 text-center">La consommation de masse</h3>
+                    <p class="text-gray-700 text-center">Plastiques, produits chimiques et autres déchets de consommation</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Impacts -->
+        <section class="bg-eco-blue-50 rounded-3xl p-8 md:p-12 mb-16 shadow-lg">
+            <h2 class="text-3xl font-bold mb-6 text-center text-gradient-eco">Impacts sur la santé et l'environnement</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8 text-center">La pollution a des conséquences graves sur :</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <h3 class="text-xl font-bold mb-4 text-eco-green-800 flex items-center">
+                        <i class="fas fa-heartbeat text-eco-green-600 mr-3"></i>
+                        La santé humaine
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-xs text-eco-green-500 mt-1.5 mr-2"></i>
+                            <span>Maladies respiratoires (asthme, bronchite chronique)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-xs text-eco-green-500 mt-1.5 mr-2"></i>
+                            <span>Maladies cardiovasculaires</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-xs text-eco-green-500 mt-1.5 mr-2"></i>
+                            <span>Cancers et autres maladies chroniques</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <h3 class="text-xl font-bold mb-4 text-eco-blue-800 flex items-center">
+                        <i class="fas fa-paw text-eco-blue-600 mr-3"></i>
+                        La biodiversité
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-xs text-eco-blue-500 mt-1.5 mr-2"></i>
+                            <span>Disparition d'espèces animales et végétales</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-xs text-eco-blue-500 mt-1.5 mr-2"></i>
+                            <span>Perturbation des écosystèmes marins et terrestres</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-xs text-eco-blue-500 mt-1.5 mr-2"></i>
+                            <span>Déséquilibres écologiques majeurs</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <h3 class="text-xl font-bold mb-4 text-eco-green-800 flex items-center">
+                        <i class="fas fa-cloud-sun-rain text-eco-green-600 mr-3"></i>
+                        Le climat
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-xs text-eco-green-500 mt-1.5 mr-2"></i>
+                            <span>Réchauffement climatique global</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-xs text-eco-green-500 mt-1.5 mr-2"></i>
+                            <span>Phénomènes météorologiques extrêmes</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-xs text-eco-green-500 mt-1.5 mr-2"></i>
+                            <span>Modification des cycles naturels</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <h3 class="text-xl font-bold mb-4 text-eco-blue-800 flex items-center">
+                        <i class="fas fa-chart-line text-eco-blue-600 mr-3"></i>
+                        L'économie
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-xs text-eco-blue-500 mt-1.5 mr-2"></i>
+                            <span>Coûts liés aux soins de santé</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-xs text-eco-blue-500 mt-1.5 mr-2"></i>
+                            <span>Dépenses pour la restauration de l'environnement</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-xs text-eco-blue-500 mt-1.5 mr-2"></i>
+                            <span>Baisse de productivité agricole et industrielle</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <a href="/pollution/impacts" class="inline-block px-8 py-3 bg-gradient-eco text-white font-medium rounded-full shadow-lg hover:opacity-90 transition-opacity duration-300">
+                    Comprendre les impacts
+                </a>
+            </div>
+        </section>
+        
+        <!-- Solutions -->
+        <section class="bg-eco-green-100 rounded-3xl p-8 md:p-12 mb-16 shadow-lg">
+            <h2 class="text-3xl font-bold mb-6 text-center text-gradient-eco">Comment éviter la pollution atmosphérique ?</h2>
+            
+            <div class="bg-white rounded-xl p-6 shadow-md mb-8">
+                <h3 class="text-xl font-bold mb-4 text-eco-green-800">Législation et accords internationaux</h3>
+                <p class="text-gray-700 mb-4">La lutte contre la pollution s'organise aussi au niveau légal et diplomatique :</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-file-signature text-eco-green-600 mt-1"></i>
+                        <span class="text-gray-700">Accord de Paris sur le climat</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-file-signature text-eco-green-600 mt-1"></i>
+                        <span class="text-gray-700">Convention de Stockholm sur les polluants</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-file-signature text-eco-green-600 mt-1"></i>
+                        <span class="text-gray-700">Protocole de Montréal (couche d'ozone)</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-file-signature text-eco-green-600 mt-1"></i>
+                        <span class="text-gray-700">Directives européennes sur la qualité de l'air</span>
+                    </div>
+                </div>
+                <p class="text-gray-700 mt-4">Ces accords fixent des objectifs et des normes pour réduire la pollution à l'échelle mondiale.</p>
+            </div>
+            
+            <h3 class="text-2xl font-bold mb-6 text-center text-eco-green-800">Solutions et actions pour réduire la pollution</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <h4 class="text-xl font-bold mb-4 text-eco-green-800 text-center">Au niveau individuel</h4>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-eco-green-500 mt-1 mr-2"></i>
+                            <span>Privilégier les transports en commun, le vélo ou la marche</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-eco-green-500 mt-1 mr-2"></i>
+                            <span>Opter pour des véhicules électriques ou hybrides</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-eco-green-500 mt-1 mr-2"></i>
+                            <span>Réduire sa consommation d'énergie à la maison</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-eco-green-500 mt-1 mr-2"></i>
+                            <span>Réduire sa consommation d'énergie à la maison</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-eco-green-500 mt-1 mr-2"></i>
+                            <span>Favoriser les énergies renouvelables</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-eco-green-500 mt-1 mr-2"></i>
+                            <span>Trier ses déchets et composter</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-eco-green-500 mt-1 mr-2"></i>
+                            <span>Limiter l'utilisation de produits chimiques volatils</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <h4 class="text-xl font-bold mb-4 text-eco-blue-800 text-center">Au niveau collectif</h4>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-eco-blue-500 mt-1 mr-2"></i>
+                            <span>Renforcer les réglementations environnementales</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-eco-blue-500 mt-1 mr-2"></i>
+                            <span>Investir dans les énergies renouvelables</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-eco-blue-500 mt-1 mr-2"></i>
+                            <span>Améliorer les systèmes de traitement des déchets</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-eco-blue-500 mt-1 mr-2"></i>
+                            <span>Développer des technologies propres</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-eco-blue-500 mt-1 mr-2"></i>
+                            <span>Soutenir des politiques en faveur de la qualité de l'air</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 shadow-md mb-8">
+                <h3 class="text-xl font-bold mb-4 text-eco-green-800">Innovations et technologies anti-pollution</h3>
+                <p class="text-gray-700 mb-4">De nombreuses innovations émergent pour lutter contre la pollution :</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-filter text-eco-green-600 mt-1"></i>
+                        <span class="text-gray-700">Filtres à air nouvelle génération pour les villes</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-leaf text-eco-green-600 mt-1"></i>
+                        <span class="text-gray-700">Plastiques biodégradables et compostables</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-seedling text-eco-green-600 mt-1"></i>
+                        <span class="text-gray-700">Techniques de phytoremédiation pour dépolluer les sols</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-microchip text-eco-green-600 mt-1"></i>
+                        <span class="text-gray-700">Capteurs intelligents pour surveiller la qualité de l'air</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-spray-can text-eco-green-600 mt-1"></i>
+                        <span class="text-gray-700">Revêtements photocatalytiques anti-pollution</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <a href="/agir/contre-pollution" class="inline-block px-8 py-3 bg-gradient-eco text-white font-medium rounded-full shadow-lg hover:opacity-90 transition-opacity duration-300 mr-4">
+                    Comment agir contre la pollution ?
+                </a>
+                <a href="/pollution/innovations" class="inline-block px-8 py-3 bg-white text-eco-green-700 font-medium rounded-full shadow-lg hover:bg-gray-50 transition-colors duration-300 border border-eco-green-300">
+                    Découvrir les innovations
+                </a>
+            </div>
+        </section>
+        
+        <!-- Widgets interactifs -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold mb-4 text-eco-green-800">Qualité de l'air en temps réel</h3>
+                <p class="text-gray-700 mb-6">Consultez la qualité de l'air dans votre région :</p>
+                <form action="/pollution/air-quality" method="GET" class="flex flex-col sm:flex-row gap-4">
+                    <input type="text" name="location" placeholder="Entrez votre ville" class="flex-grow py-3 px-6 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-eco-green-500 focus:border-transparent">
+                    <button type="submit" class="bg-gradient-eco text-white font-medium py-3 px-8 rounded-full hover:opacity-90 transition-opacity duration-300 shadow-md">
+                        Vérifier
+                    </button>
+                </form>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold mb-4 text-eco-blue-800">Carte interactive de la pollution mondiale</h3>
+                <p class="text-gray-700 mb-6">Explorez les niveaux de pollution dans différentes régions du monde :</p>
+                <div class="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
+                    <p class="text-gray-500">[Carte interactive des niveaux de pollution mondiale]</p>
+                </div>
+                <p class="text-gray-600 text-sm">Cliquez sur une région pour voir les détails des types de pollution et leurs niveaux.</p>
+            </div>
+        </section>
+        
+        <!-- Newsletter -->
+        <section class="bg-gradient-eco rounded-3xl p-8 md:p-12 mb-16">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Restez informé sur les enjeux de la pollution</h2>
+                <p class="text-white opacity-90 mb-8">Inscrivez-vous à notre newsletter pour recevoir des informations sur la pollution et les moyens de la combattre.</p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+                    <input type="email" placeholder="Votre adresse email" class="flex-grow py-3 px-6 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
+                    <button type="submit" class="bg-white text-eco-green-700 font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition-colors duration-300 shadow-lg">S'abonner</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Éco-Blog</h3>
+                    <p class="text-gray-400 mb-6">Inspirons le changement, cultivons un avenir durable pour les générations futures.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-eco-green-700 flex items-center justify-center hover:bg-eco-green-600 transition-colors duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-eco-green-700 flex items-center justify-center hover:bg-eco-green-600 transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-eco-green-700 flex items-center justify-center hover:bg-eco-green-600 transition-colors duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-eco-green-700 flex items-center justify-center hover:bg-eco-green-600 transition-colors duration-300">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Liens rapides</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors duration-300">Accueil</a></li>
+                        <li><a href="environnement.html" class="text-gray-400 hover:text-white transition-colors duration-300">Environnement</a></li>
+                        <li><a href="reboisement.html" class="text-gray-400 hover:text-white transition-colors duration-300">Reboisement</a></li>
+                        <li><a href="pollution.html" class="text-gray-400 hover:text-white transition-colors duration-300">Pollution</a></li>
+                        <li><a href="dechets.html" class="text-gray-400 hover:text-white transition-colors duration-300">Déchets</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Ressources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Guides pratiques</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Études de cas</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Événements</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-eco-green-500"></i>
+                            <span class="text-gray-400">123 Rue de l'Écologie, 75001 Paris, France</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-eco-green-500"></i>
+                            <span class="text-gray-400">+33 1 23 45 67 89</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-eco-green-500"></i>
+                            <span class="text-gray-400">contact@eco-blog.earth</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 mb-4 md:mb-0">&copy; 2024 Eco-Blog. Par YATTARA Ousmane. Tous droits réservés.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Politique de confidentialité</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Conditions d'utilisation</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Mentions légales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Menu mobile toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const closeMenu = document.getElementById('closeMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuContent = mobileMenu.querySelector('div');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.remove('hidden');
+                setTimeout(() => {
+                    mobileMenuContent.style.transform = 'translateX(0)';
+                }, 10);
+            });
+            
+            closeMenu.addEventListener('click', function() {
+                mobileMenuContent.style.transform = 'translateX(-100%)';
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                }, 500);
+            });
+            
+            // Fermer le menu si on clique en dehors
+            mobileMenu.addEventListener('click', function(e) {
+                if (e.target === mobileMenu) {
+                    mobileMenuContent.style.transform = 'translateX(-100%)';
+                    setTimeout(() => {
+                        mobileMenu.classList.add('hidden');
+                    }, 500);
+                }
+            });
+        });
+
+        // Animation au défilement
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            document.querySelectorAll('.pollution-card, section > div').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

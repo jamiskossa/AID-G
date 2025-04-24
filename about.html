@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos - Éco-Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'eco-green': {
+                            100: '#e6f5e6',
+                            200: '#c2e5c2',
+                            300: '#9ed59e',
+                            400: '#7ac57a',
+                            500: '#56b556',
+                            600: '#45a445',
+                            700: '#348834',
+                            800: '#236c23',
+                            900: '#125012',
+                        },
+                        'eco-blue': {
+                            100: '#e6f0ff',
+                            200: '#c2d9ff',
+                            300: '#9ec2ff',
+                            400: '#7aabff',
+                            500: '#5694ff',
+                            600: '#4576cc',
+                            700: '#345999',
+                            800: '#233b66',
+                            900: '#121e33',
+                        },
+                    },
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Styles personnalisés qui ne peuvent pas être facilement réalisés avec Tailwind */
+        .bg-gradient-eco {
+            background: linear-gradient(135deg, #56b556 0%, #348834 50%, #125012 100%);
+        }
+        .text-gradient-eco {
+            background: linear-gradient(90deg, #56b556, #348834);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(18,80,18,0.7));
+        }
+        .menu-transition {
+            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+        }
+        .profile-image-border {
+            position: relative;
+        }
+        .profile-image-border::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 3px solid #56b556;
+            border-radius: 50%;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="font-poppins bg-gray-50 text-gray-800">
+    <!-- Header avec menu de navigation -->
+    <header class="relative z-50">
+        <nav class="bg-white shadow-md">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <!-- Logo -->
+                <div class="w-32 h-12 relative overflow-hidden rounded-lg">
+                    <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+                        <source src="kankou.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la vidéo.
+                    </video>
+                </div>
+                
+                <!-- Menu pour desktop -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Accueil</a>
+                    <a href="environnement.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Environnement</a>
+                    <a href="reboisement.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Reboisement</a>
+                    <a href="pollution.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Pollution</a>
+                    <a href="dechets.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Déchets</a>
+                    <a href="faune-flore.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Faune & Flore</a>
+                    <a href="agir.html" class="text-gray-700 hover:text-eco-green-600 transition-colors duration-300">Agir</a>
+                    <a href="about.html" class="text-eco-green-600 font-medium hover:text-eco-green-800 transition-colors duration-300">À propos</a>
+                </div>
+                
+                <!-- Bouton de menu pour mobile -->
+                <button id="menuToggle" class="md:hidden flex items-center p-2 rounded-full bg-eco-green-100 text-eco-green-600 hover:bg-eco-green-200 transition-colors duration-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Menu mobile (caché par défaut) -->
+            <div id="mobileMenu" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+                <div class="bg-white h-full w-4/5 max-w-xs p-5 transform -translate-x-full menu-transition">
+                    <div class="flex justify-between items-center mb-8">
+                        <h2 class="text-xl font-bold text-gradient-eco">Menu</h2>
+                        <button id="closeMenu" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div class="flex flex-col space-y-4">
+                        <a href="index.html" class="py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors duration-300">Accueil</a>
+                        <a href="environnement.html" class="py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors duration-300">Environnement</a>
+                        <a href="reboisement.html" class="py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors duration-300">Reboisement</a>
+                        <a href="pollution.html" class="py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors duration-300">Pollution</a>
+                        <a href="dechets.html" class="py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors duration-300">Déchets</a>
+                        <a href="faune-flore.html" class="py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors duration-300">Faune & Flore</a>
+                        <a href="agir.html" class="py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors duration-300">Agir</a>
+                        <a href="about.html" class="py-2 px-4 bg-eco-green-100 text-eco-green-700 rounded-lg font-medium">À propos</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Section principale -->
+    <main class="container mx-auto px-4 py-12">
+        <section class="max-w-4xl mx-auto mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold mb-8 text-center text-gradient-eco">À propos du créateur</h1>
+            
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-12 mb-12">
+                <!-- Photo de profil -->
+                <div class="w-64 h-64 relative">
+                    <div class="w-full h-full rounded-full overflow-hidden profile-image-border">
+                        <img src="yattara.jpg" alt="Yattara Ousmane" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                
+                <!-- Informations personnelles -->
+                <div class="flex-1">
+                    <h2 class="text-3xl font-bold mb-4 text-eco-green-800">Yattara Ousmane</h2>
+                    <p class="text-xl text-gray-600 mb-6">Fondateur & Rédacteur en chef</p>
+                    
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Passionné d'écologie et de développement durable, j'ai créé ce blog pour partager mes connaissances et sensibiliser le plus grand nombre aux enjeux environnementaux actuels. Mon objectif est de rendre l'information accessible à tous et d'inspirer des actions concrètes pour protéger notre planète.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-eco-green-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-eco-green-600"></i>
+                            </div>
+                            <span class="text-gray-700">contact@eco-blog.earth</span>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-eco-green-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-phone text-eco-green-600"></i>
+                            </div>
+                            <span class="text-gray-700">+33 1 23 45 67 89</span>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-eco-green-100 flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-eco-green-600"></i>
+                            </div>
+                            <span class="text-gray-700">+33 6 12 34 56 78</span>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-eco-green-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt text-eco-green-600"></i>
+                            </div>
+                            <span class="text-gray-700">Paris, France</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex space-x-4">
+                        <a href="https://twitter.com/yattaraousmane" target="_blank" class="w-12 h-12 rounded-full bg-eco-green-600 flex items-center justify-center text-white hover:bg-eco-green-700 transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/yattaraousmane" target="_blank" class="w-12 h-12 rounded-full bg-eco-green-600 flex items-center justify-center text-white hover:bg-eco-green-700 transition-colors duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://instagram.com/yattaraousmane" target="_blank" class="w-12 h-12 rounded-full bg-eco-green-600 flex items-center justify-center text-white hover:bg-eco-green-700 transition-colors duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/33612345678" target="_blank" class="w-12 h-12 rounded-full bg-eco-green-600 flex items-center justify-center text-white hover:bg-eco-green-700 transition-colors duration-300">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Parcours et expertise -->
+        <section class="max-w-4xl mx-auto mb-16 bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-2xl font-bold mb-6 text-eco-green-800">Mon parcours</h2>
+            
+            <div class="space-y-6">
+                <div class="flex">
+                    <div class="w-1 bg-eco-green-200 relative mr-6">
+                        <div class="w-4 h-4 rounded-full bg-eco-green-600 absolute -left-1.5"></div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-eco-green-700">Master en Sciences de l'Environnement</h3>
+                        <p class="text-gray-500 mb-2">Université de Paris, 2018-2020</p>
+                        <p class="text-gray-700">Spécialisation en gestion durable des ressources naturelles et politiques environnementales.</p>
+                    </div>
+                </div>
+                
+                <div class="flex">
+                    <div class="w-1 bg-eco-green-200 relative mr-6">
+                        <div class="w-4 h-4 rounded-full bg-eco-green-600 absolute -left-1.5"></div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-eco-green-700">Chargé de projet environnemental</h3>
+                        <p class="text-gray-500 mb-2">ONG Terre Vivante, 2020-2022</p>
+                        <p class="text-gray-700">Coordination de projets de reforestation et de sensibilisation à la protection de la biodiversité.</p>
+                    </div>
+                </div>
+                
+                <div class="flex">
+                    <div class="w-1 bg-eco-green-200 relative mr-6">
+                        <div class="w-4 h-4 rounded-full bg-eco-green-600 absolute -left-1.5"></div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-eco-green-700">Fondateur d'Éco-Blog</h3>
+                        <p class="text-gray-500 mb-2">Depuis 2022</p>
+                        <p class="text-gray-700">Création et animation d'une plateforme d'information et de sensibilisation aux enjeux environnementaux.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Expertise et compétences -->
+        <section class="max-w-4xl mx-auto mb-16">
+            <h2 class="text-2xl font-bold mb-8 text-center text-eco-green-800">Mes domaines d'expertise</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-16 h-16 bg-eco-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-tree text-eco-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-eco-green-800 text-center">Reforestation</h3>
+                    <p class="text-gray-600 text-center">Techniques de reboisement, sélection d'espèces adaptées, suivi de projets.</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-16 h-16 bg-eco-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-recycle text-eco-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-eco-green-800 text-center">Économie circulaire</h3>
+                    <p class="text-gray-600 text-center">Gestion des déchets, recyclage, valorisation des ressources.</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-16 h-16 bg-eco-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-bullhorn text-eco-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-eco-green-800 text-center">Communication environnementale</h3>
+                    <p class="text-gray-600 text-center">Sensibilisation, vulgarisation scientifique, mobilisation citoyenne.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Ma vision -->
+        <section class="max-w-4xl mx-auto mb-16 bg-gradient-eco rounded-2xl p-8 text-white">
+            <h2 class="text-2xl font-bold mb-6 text-center">Ma vision</h2>
+            
+            <blockquote class="text-lg italic mb-6 text-center">
+                "Je crois profondément que chaque individu a le pouvoir de contribuer à un avenir plus durable. Mon ambition est de créer un pont entre les connaissances scientifiques et l'action citoyenne, pour que chacun puisse s'engager à son niveau."
+            </blockquote>
+            
+            <p class="text-center">
+                — Yattara Ousmane
+            </p>
+        </section>
+        
+        <!-- Formulaire de contact -->
+        <section class="max-w-2xl mx-auto mb-16 bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-2xl font-bold mb-6 text-center text-eco-green-800">Me contacter</h2>
+            
+            <p class="text-gray-700 mb-8 text-center">
+                Vous avez des questions, des suggestions ou souhaitez collaborer ? N'hésitez pas à me contacter via ce formulaire.
+            </p>
+            
+            <form>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="name" class="block text-gray-700 font-medium mb-2">Nom</label>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-eco-green-500">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-eco-green-500">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="subject" class="block text-gray-700 font-medium mb-2">Sujet</label>
+                    <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-eco-green-500">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
+                    <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-eco-green-500"></textarea>
+                </div>
+                
+                <div class="text-center">
+                    <button type="submit" class="px-8 py-3 bg-gradient-eco text-white font-medium rounded-full shadow-lg hover:opacity-90 transition-opacity duration-300">
+                        Envoyer le message
+                    </button>
+                </div>
+            </form>
+        </section>
+        
+        <!-- Contact rapide -->
+        <section class="max-w-4xl mx-auto mb-16">
+            <h2 class="text-2xl font-bold mb-8 text-center text-eco-green-800">Contact rapide</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="mailto:contact@eco-blog.earth" class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col items-center">
+                    <div class="w-16 h-16 bg-eco-green-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-envelope text-eco-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-eco-green-800">Email</h3>
+                    <p class="text-gray-600 text-center">contact@eco-blog.earth</p>
+                </a>
+                
+                <a href="tel:+33123456789" class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col items-center">
+                    <div class="w-16 h-16 bg-eco-green-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-phone text-eco-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-eco-green-800">Téléphone</h3>
+                    <p class="text-gray-600 text-center">+33 1 23 45 67 89</p>
+                </a>
+                
+                <a href="https://wa.me/33612345678" target="_blank" class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col items-center">
+                    <div class="w-16 h-16 bg-eco-green-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fab fa-whatsapp text-eco-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-eco-green-800">WhatsApp</h3>
+                    <p class="text-gray-600 text-center">+33 6 12 34 56 78</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Éco-Blog</h3>
+                    <p class="text-gray-400 mb-6">Inspirons le changement, cultivons un avenir durable pour les générations futures.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-eco-green-700 flex items-center justify-center hover:bg-eco-green-600 transition-colors duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-eco-green-700 flex items-center justify-center hover:bg-eco-green-600 transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-eco-green-700 flex items-center justify-center hover:bg-eco-green-600 transition-colors duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-eco-green-700 flex items-center justify-center hover:bg-eco-green-600 transition-colors duration-300">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Liens rapides</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors duration-300">Accueil</a></li>
+                        <li><a href="environnement.html" class="text-gray-400 hover:text-white transition-colors duration-300">Environnement</a></li>
+                        <li><a href="reboisement.html" class="text-gray-400 hover:text-white transition-colors duration-300">Reboisement</a></li>
+                        <li><a href="pollution.html" class="text-gray-400 hover:text-white transition-colors duration-300">Pollution</a></li>
+                        <li><a href="dechets.html" class="text-gray-400 hover:text-white transition-colors duration-300">Déchets</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Ressources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Guides pratiques</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Études de cas</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Événements</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-eco-green-500"></i>
+                            <span class="text-gray-400">123 Rue de l'Écologie, 75001 Paris, France</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-eco-green-500"></i>
+                            <span class="text-gray-400">+33 1 23 45 67 89</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-eco-green-500"></i>
+                            <span class="text-gray-400">contact@eco-blog.earth</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 mb-4 md:mb-0">&copy; 2024 Eco-Blog. Par YATTARA Ousmane. Tous droits réservés.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Politique de confidentialité</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Conditions d'utilisation</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Mentions légales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Menu mobile toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const closeMenu = document.getElementById('closeMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuContent = mobileMenu.querySelector('div');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.remove('hidden');
+                setTimeout(() => {
+                    mobileMenuContent.style.transform = 'translateX(0)';
+                }, 10);
+            });
+            
+            closeMenu.addEventListener('click', function() {
+                mobileMenuContent.style.transform = 'translateX(-100%)';
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                }, 500);
+            });
+            
+            // Fermer le menu si on clique en dehors
+            mobileMenu.addEventListener('click', function(e) {
+                if (e.target === mobileMenu) {
+                    mobileMenuContent.style.transform = 'translateX(-100%)';
+                    setTimeout(() => {
+                        mobileMenu.classList.add('hidden');
+                    }, 500);
+                }
+            });
+        });
+
+        // Animation au défilement
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            document.querySelectorAll('section > div').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
